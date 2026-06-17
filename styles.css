@@ -2623,3 +2623,34 @@ strong {
     line-height: 1.4;
   }
 }
+
+/* ==========================================
+   26. LOCKING MECHANISM FOR EMBEDDED CHECKOUT
+   ========================================== */
+.payment-block-premium {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Progress wizard and hidden state styling */
+.checkout-grid-premium.payment-hidden {
+  grid-template-columns: 1fr;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.checkout-grid-premium.payment-hidden .checkout-col-right {
+  display: none !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.btn-disabled-checkout {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+

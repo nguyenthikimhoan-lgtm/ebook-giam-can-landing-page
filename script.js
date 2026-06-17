@@ -221,7 +221,9 @@ function initSmoothScroll() {
 // ==========================================
 function initCheckoutSection() {
   const packageRadios = document.querySelectorAll('input[name="checkout-package"]');
+  const nameInput = document.getElementById("checkout-name");
   const phoneInput = document.getElementById("checkout-phone");
+  const emailInput = document.getElementById("checkout-email");
   const memoText = document.getElementById("bank-transfer-memo");
   const qrImage = document.getElementById("qr-image-dynamic");
   
@@ -230,6 +232,11 @@ function initCheckoutSection() {
   const summaryTotalPrice = document.getElementById("summary-total-price");
   const bankTransferAmount = document.getElementById("bank-transfer-amount");
   const qrPaymentAmount = document.getElementById("qr-payment-amount");
+  
+  const boxPackage = document.getElementById("checkout-box-package");
+  const boxSummary = document.getElementById("checkout-box-summary");
+  const boxAction = document.getElementById("checkout-box-action");
+  const checkoutGrid = document.querySelector(".checkout-grid-premium");
   
   const originalPrices = {
     starter: "800.000đ",
@@ -294,18 +301,57 @@ function initCheckoutSection() {
     updateQR();
   }
   
+  function updateProgressiveCheckout() {
+    if (!nameInput || !phoneInput || !emailInput) return;
+    
+    const nameFilled = nameInput.value.trim() !== "";
+    const phoneFilled = phoneInput.value.trim() !== "";
+    const emailFilled = emailInput.value.trim() !== "";
+    const emailValid = emailInput.checkValidity();
+    
+    if (nameFilled && phoneFilled && emailFilled && emailValid) {
+      if (boxPackage) boxPackage.style.display = "block";
+      
+      const selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+      if (selectedRadio) {
+        if (boxSummary) boxSummary.style.display = "block";
+        if (boxAction) boxAction.style.display = "block";
+      } else {
+        if (boxSummary) boxSummary.style.display = "none";
+        if (boxAction) boxAction.style.display = "none";
+      }
+    } else {
+      if (boxPackage) boxPackage.style.display = "none";
+      if (boxSummary) boxSummary.style.display = "none";
+      if (boxAction) boxAction.style.display = "none";
+    }
+  }
+  
   // Gắn lắng nghe sự kiện
   packageRadios.forEach(radio => {
-    radio.addEventListener("change", updateSummary);
+    radio.addEventListener("change", () => {
+      updateSummary();
+      updateProgressiveCheckout();
+    });
   });
   
+  if (nameInput) {
+    nameInput.addEventListener("input", updateProgressiveCheckout);
+  }
   if (phoneInput) {
-    phoneInput.addEventListener("input", updateMemo);
+    phoneInput.addEventListener("input", () => {
+      updateMemo();
+      updateProgressiveCheckout();
+    });
+  }
+  if (emailInput) {
+    emailInput.addEventListener("input", updateProgressiveCheckout);
   }
   
   // Khởi chạy đồng bộ lần đầu tiên
   updateSummary();
   updateMemo();
+  updateProgressiveCheckout();
 
   // Xử lý nộp form đăng ký để lưu vào Google Sheets
   const checkoutForm = document.getElementById("checkout-form-embedded");
@@ -313,7 +359,6 @@ function initCheckoutSection() {
   const spinner = document.getElementById("spinner-checkout");
   const successBox = document.getElementById("checkout-success-box");
   const warningBox = document.getElementById("checkout-warning-box");
-  const lockOverlay = document.getElementById("payment-lock-overlay");
 
   if (checkoutForm && btnSubmit) {
     checkoutForm.addEventListener("submit", (e) => {
@@ -327,9 +372,9 @@ function initCheckoutSection() {
       if (warningBox) warningBox.style.display = "none";
 
       // Thu thập thông tin từ form
-      const name = document.getElementById("checkout-name").value.trim();
+      const name = nameInput ? nameInput.value.trim() : "";
       const phone = phoneInput ? phoneInput.value.trim() : "";
-      const email = document.getElementById("checkout-email").value.trim();
+      const email = emailInput ? emailInput.value.trim() : "";
       
       const selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
       const packageLabel = selectedRadio ? selectedRadio.getAttribute("data-label") : "Gói Lộ Trình Hoàn Chỉnh 90 Ngày";
@@ -362,39 +407,47 @@ function initCheckoutSection() {
         body: JSON.stringify(payload)
       })
       .then(() => {
-        // Lưu thành công -> Mở khóa phần thanh toán VietQR
-        if (lockOverlay) {
-          lockOverlay.classList.add("unlocked");
+        // Lưu thành công -> Mở khóa hiển thị phần thanh toán VietQR
+        if (checkoutGrid) {
+          checkoutGrid.classList.remove("payment-hidden");
         }
         
         // Hiển thị hộp thông báo thành công (Yêu cầu số 4)
         if (successBox) {
+          successBox.innerHTML = `✅ <strong>Thành công:</strong> Thông tin đăng ký đã được lưu. Vui lòng quét mã QR để hoàn tất thanh toán.`;
           successBox.style.display = "block";
+        }
+        if (warningBox) {
+          warningBox.style.display = "none";
         }
         
         // Cuộn tới phần thanh toán VietQR
         const paymentBlock = document.querySelector(".payment-block-premium");
         if (paymentBlock) {
-          paymentBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+          paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       })
       .catch(error => {
         console.error("Error saving to Google Sheets:", error);
         
-        // Nếu lưu thất bại, vẫn mở khóa mã QR để khách thanh toán (Yêu cầu số 5)
-        if (lockOverlay) {
-          lockOverlay.classList.add("unlocked");
+        // Nếu lưu thất bại, vẫn hiển thị mã QR để khách thanh toán (Yêu cầu số 5)
+        if (checkoutGrid) {
+          checkoutGrid.classList.remove("payment-hidden");
         }
         
         // Hiển thị hộp thông báo lỗi nhỏ (Yêu cầu số 5)
         if (warningBox) {
+          warningBox.innerHTML = `⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu. Vui lòng chụp màn hình giao dịch hoặc liên hệ Zalo hỗ trợ.`;
           warningBox.style.display = "block";
+        }
+        if (successBox) {
+          successBox.style.display = "none";
         }
         
         // Cuộn tới phần thanh toán VietQR
         const paymentBlock = document.querySelector(".payment-block-premium");
         if (paymentBlock) {
-          paymentBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+          paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       })
       .finally(() => {
