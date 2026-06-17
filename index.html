@@ -1559,7 +1559,7 @@
       <div class="checkout-grid-premium">
         
         <!-- LEFT COLUMN: Customer Form, Package Selection, Order Summary -->
-        <div class="checkout-col-left">
+        <form id="checkout-form-embedded" class="checkout-col-left">
           
           <!-- Box 1: Customer Information -->
           <div class="checkout-box-premium">
@@ -1643,18 +1643,52 @@
             </div>
           </div>
 
-        </div>
+          <!-- Box 4: Action Button -->
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" id="btn-submit-checkout" class="btn-coral" style="width: 100%; font-size: 1.15rem; padding: 1.1rem; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.75rem; transition: all 0.3s ease; background-color: var(--color-accent); box-shadow: var(--shadow-sm);">
+              <span>THANH TOÁN ĐƠN HÀNG</span>
+              <svg id="spinner-checkout" style="display: none; width: 20px; height: 20px; animation: spin 1s linear infinite; color: white;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" style="opacity: 0.25;"></circle>
+                <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" style="opacity: 0.75;"></path>
+              </svg>
+            </button>
+          </div>
+
+        </form>
 
         <!-- RIGHT COLUMN: Large QR Code, Bank Information, Payment Instructions -->
         <div class="checkout-col-right">
           
           <!-- Payment Block Container -->
           <div class="payment-block-premium">
+            
+            <!-- Success Box for successful save (Initially hidden) -->
+            <div id="checkout-success-box" class="checkout-success-box" style="display: none; background-color: #ECFDF5; border: 1px solid #10B981; color: #065F46; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.85rem; margin-bottom: 1rem; text-align: left; line-height: 1.4; font-family: var(--font-body);">
+              ✅ <strong>Thành công:</strong> Thông tin đăng ký đã được lưu. Vui lòng quét mã QR để hoàn tất thanh toán.
+            </div>
+
+            <!-- Warning Box for failed save (Initially hidden) -->
+            <div id="checkout-warning-box" class="checkout-warning-box" style="display: none; background-color: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.85rem; margin-bottom: 1rem; text-align: left; line-height: 1.4; font-family: var(--font-body);">
+              ⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu. Vui lòng chụp màn hình giao dịch hoặc liên hệ Zalo hỗ trợ.
+            </div>
+
             <h3 class="checkout-box-title" style="text-align: center; color: var(--color-primary-dark); margin-bottom: 0.5rem;">💳 CỔNG CHUYỂN KHOẢN VIETQR CHÍNH THỨC</h3>
             
             <!-- Trust Statement Badge -->
             <div class="trust-statement-premium-wrapper">
               <span class="trust-statement-premium">💖 Hơn 5.000+ phụ nữ Việt đã áp dụng hệ thống này</span>
+            </div>
+
+            <!-- Lock Overlay -->
+            <div id="payment-lock-overlay" class="payment-lock-overlay">
+              <div class="lock-icon-wrapper">
+                <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h4>CỔNG THANH TOÁN ĐANG KHÓA</h4>
+              <p>Vui lòng điền thông tin đăng ký bên trái và nhấn nút <strong>"XÁC NHẬN ĐĂNG KÝ & THANH TOÁN"</strong> để nhận mã QR chuyển khoản cá nhân hóa.</p>
             </div>
             
             <!-- Large QR Code Box -->

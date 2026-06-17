@@ -306,7 +306,107 @@ function initCheckoutSection() {
   // Khởi chạy đồng bộ lần đầu tiên
   updateSummary();
   updateMemo();
+
+  // Xử lý nộp form đăng ký để lưu vào Google Sheets
+  const checkoutForm = document.getElementById("checkout-form-embedded");
+  const btnSubmit = document.getElementById("btn-submit-checkout");
+  const spinner = document.getElementById("spinner-checkout");
+  const successBox = document.getElementById("checkout-success-box");
+  const warningBox = document.getElementById("checkout-warning-box");
+  const lockOverlay = document.getElementById("payment-lock-overlay");
+
+  if (checkoutForm && btnSubmit) {
+    checkoutForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Hiển thị trạng thái Loading trên nút bấm, ẩn các hộp thông báo cũ
+      if (spinner) spinner.style.display = "inline-block";
+      btnSubmit.classList.add("btn-disabled-checkout");
+      btnSubmit.disabled = true;
+      if (successBox) successBox.style.display = "none";
+      if (warningBox) warningBox.style.display = "none";
+
+      // Thu thập thông tin từ form
+      const name = document.getElementById("checkout-name").value.trim();
+      const phone = phoneInput ? phoneInput.value.trim() : "";
+      const email = document.getElementById("checkout-email").value.trim();
+      
+      const selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+      const packageLabel = selectedRadio ? selectedRadio.getAttribute("data-label") : "Gói Lộ Trình Hoàn Chỉnh 90 Ngày";
+      const amount = selectedRadio ? selectedRadio.getAttribute("data-price") : "599000";
+      
+      const safePhone = phone.replace(/[^0-9]/g, "");
+      const memo = safePhone ? "GC_" + safePhone : "GC_CHO_SDT";
+
+      // Thiết lập payload đúng yêu cầu
+      const payload = {
+        name: name,
+        phone: phone,
+        email: email,
+        package: packageLabel,
+        amount: parseInt(amount),
+        memo: memo,
+        status: "PENDING",
+        sent: "NO"
+      };
+
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbxVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+
+      // Gửi dữ liệu tới Google Sheets qua fetch POST
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8" // Sử dụng text/plain tránh lỗi CORS preflight OPTIONS
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        // Lưu thành công -> Mở khóa phần thanh toán VietQR
+        if (lockOverlay) {
+          lockOverlay.classList.add("unlocked");
+        }
+        
+        // Hiển thị hộp thông báo thành công (Yêu cầu số 4)
+        if (successBox) {
+          successBox.style.display = "block";
+        }
+        
+        // Cuộn tới phần thanh toán VietQR
+        const paymentBlock = document.querySelector(".payment-block-premium");
+        if (paymentBlock) {
+          paymentBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      })
+      .catch(error => {
+        console.error("Error saving to Google Sheets:", error);
+        
+        // Nếu lưu thất bại, vẫn mở khóa mã QR để khách thanh toán (Yêu cầu số 5)
+        if (lockOverlay) {
+          lockOverlay.classList.add("unlocked");
+        }
+        
+        // Hiển thị hộp thông báo lỗi nhỏ (Yêu cầu số 5)
+        if (warningBox) {
+          warningBox.style.display = "block";
+        }
+        
+        // Cuộn tới phần thanh toán VietQR
+        const paymentBlock = document.querySelector(".payment-block-premium");
+        if (paymentBlock) {
+          paymentBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      })
+      .finally(() => {
+        // Khôi phục trạng thái nút bấm
+        if (spinner) spinner.style.display = "none";
+        btnSubmit.classList.remove("btn-disabled-checkout");
+        btnSubmit.disabled = false;
+      });
+    });
+  }
 }
+
 
 // ==========================================
 // 8. HÀM SAO CHÉP TEXT CHO TOÀN BỘ TRANG (ROBUST FALLBACK COPY)
