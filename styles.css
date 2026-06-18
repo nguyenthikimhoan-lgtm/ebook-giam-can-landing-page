@@ -2779,4 +2779,28 @@ strong {
   transform: translateY(0);
 }
 
+.btn-check-email {
+  background-color: var(--color-primary);
+  color: white !important;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(15, 90, 71, 0.2);
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-check-email:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(15, 90, 71, 0.3);
+}
+
+.btn-check-email:active {
+  transform: translateY(0);
+}
+
 

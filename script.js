@@ -170,33 +170,81 @@ function initExitIntent() {
         return;
       }
 
-      // Record successful submission (30 days block)
-      localStorage.setItem("exit_popup_submitted_time", String(Date.now()));
-
-      if (popupBody) {
-        popupBody.innerHTML = `
-          <button class="close-exit-btn" id="success-close-x-btn" aria-label="Đóng popup">&times;</button>
-          <div class="popup-success-card" style="text-align: center; padding: 40px 24px;">
-            <div style="font-size: 55px; margin-bottom: 20px; color: #10B981; animation: gift-bounce 2s infinite;">🎉</div>
-            <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: bold; margin-bottom: 16px; line-height: 1.3; letter-spacing: 0.5px;">ĐĂNG KÝ THÀNH CÔNG!</h3>
-            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
-              Tài liệu <strong>7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo</strong> đã được gửi vào email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
-            </p>
-            <p style="color: #6B7280; font-size: 14px; line-height: 1.5; margin-bottom: 30px;">
-              Vui lòng kiểm tra Hộp thư đến, Quảng cáo hoặc Spam để đọc tài liệu.
-            </p>
-            <button id="success-close-popup" class="btn-coral" style="padding: 12px 35px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; display: inline-block; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background-color 0.2s;">QUAY LẠI TRANG CHỦ</button>
-          </div>
-        `;
-
-        // Both QUAY LẠI TRANG CHỦ and the "x" button on the success screen close the popup
-        const closeSuccess = () => {
-          exitPopup.classList.remove("active");
-        };
-
-        document.getElementById("success-close-popup").addEventListener("click", closeSuccess);
-        document.getElementById("success-close-x-btn").addEventListener("click", closeSuccess);
+      // Show loading/spinner state on button
+      const submitBtn = popupForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : "NHẬN TÀI LIỆU MIỄN PHÍ NGAY";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "ĐANG GỬI THÔNG TIN...";
+        submitBtn.style.opacity = "0.7";
       }
+
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbxMNJ8TLBYTcJTiuvjl8qpHTINsBOmiT9f3tIExmSsZmI-OIlZ4_52t4Ng8QjEeNCq9/exec";
+      const payload = {
+        type: "lead_magnet",
+        name: name,
+        email: email
+      };
+
+      // Send payload via fetch POST
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8" // Bypass CORS preflight via text/plain
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data && (data.success === true || data.success === "true")) {
+          // Record successful submission (30 days block)
+          localStorage.setItem("exit_popup_submitted_time", String(Date.now()));
+
+          if (popupBody) {
+            popupBody.innerHTML = `
+              <button class="close-exit-btn" id="success-close-x-btn" aria-label="Đóng popup">&times;</button>
+              <div class="popup-success-card" style="text-align: center; padding: 40px 24px;">
+                <div style="font-size: 55px; margin-bottom: 20px; color: #10B981; animation: gift-bounce 2s infinite;">🎉</div>
+                <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: bold; margin-bottom: 16px; line-height: 1.3; letter-spacing: 0.5px;">ĐĂNG KÝ THÀNH CÔNG!</h3>
+                <p style="color: #374151; font-size: 16px; line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Tài liệu <strong>7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo</strong> đã được gửi vào email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
+                </p>
+                <p style="color: #6B7280; font-size: 14px; line-height: 1.5; margin-bottom: 30px;">
+                  Vui lòng kiểm tra Hộp thư đến, Quảng cáo hoặc Spam để đọc tài liệu.
+                </p>
+                <button id="success-close-popup" class="btn-coral" style="padding: 12px 35px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; display: inline-block; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background-color 0.2s;">QUAY LẠI TRANG CHỦ</button>
+              </div>
+            `;
+
+            // Both QUAY LẠI TRANG CHỦ and the "x" button on the success screen close the popup
+            const closeSuccess = () => {
+              exitPopup.classList.remove("active");
+            };
+
+            document.getElementById("success-close-popup").addEventListener("click", closeSuccess);
+            document.getElementById("success-close-x-btn").addEventListener("click", closeSuccess);
+          }
+        } else {
+          throw new Error("Server returned unsuccessful response status");
+        }
+      })
+      .catch(error => {
+        console.error("Error saving lead capture popup details:", error);
+        alert("Có lỗi xảy ra, vui lòng thử lại hoặc liên hệ Zalo hỗ trợ.");
+
+        // Restore button state
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.style.opacity = "";
+        }
+      });
     });
   }
 }
