@@ -100,37 +100,93 @@ function initExitIntent() {
 
   let hasTriggered = false;
 
-  if (sessionStorage.getItem("exit_popup_shown")) {
-    hasTriggered = true;
+  function isPopupAllowed() {
+    // Show popup only once per session
+    if (sessionStorage.getItem("exit_popup_session_shown")) {
+      return false;
+    }
+
+    // If user closes popup, do not show again for 24 hours using localStorage
+    const closedTime = localStorage.getItem("exit_popup_closed_time");
+    if (closedTime) {
+      const elapsed = Date.now() - parseInt(closedTime, 10);
+      if (elapsed < 24 * 60 * 60 * 1000) {
+        return false;
+      }
+    }
+
+    // If user submits popup successfully, do not show again for 30 days using localStorage
+    const submittedTime = localStorage.getItem("exit_popup_submitted_time");
+    if (submittedTime) {
+      const elapsed = Date.now() - parseInt(submittedTime, 10);
+      if (elapsed < 30 * 24 * 60 * 60 * 1000) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
-  document.addEventListener("mouseleave", (e) => {
-    if (e.clientY < 20 && !hasTriggered) {
-      triggerPopup();
-    }
-  });
+  function triggerPopup() {
+    if (hasTriggered || !isPopupAllowed()) return;
+    exitPopup.classList.add("active");
+    hasTriggered = true;
+    sessionStorage.setItem("exit_popup_session_shown", "true");
+  }
 
+  function closePopup() {
+    exitPopup.classList.remove("active");
+    // Save closed time block of 24 hours to localStorage
+    localStorage.setItem("exit_popup_closed_time", String(Date.now()));
+  }
+
+  const isMobile = window.innerWidth < 768;
+
+  // Desktop exit intent
+  if (!isMobile) {
+    document.addEventListener("mouseleave", (e) => {
+      if (e.clientY < 20 && !hasTriggered) {
+        triggerPopup();
+      }
+    });
+  }
+
+  // Timeout triggers:
+  // Desktop: 45 seconds on page
+  // Mobile: 60 seconds on page
+  const delayMs = isMobile ? 60000 : 45000;
   setTimeout(() => {
     if (!hasTriggered) {
       triggerPopup();
     }
-  }, 45000);
+  }, delayMs);
 
-  function triggerPopup() {
-    exitPopup.classList.add("active");
-    hasTriggered = true;
-    sessionStorage.setItem("exit_popup_shown", "true");
-  }
+  // Scroll triggers:
+  // Desktop: 55% scroll of the page
+  // Mobile: 60% scroll of the page
+  window.addEventListener("scroll", () => {
+    if (hasTriggered) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight <= 0) return;
+
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    const scrollThreshold = isMobile ? 60 : 55;
+
+    if (scrollPercent >= scrollThreshold) {
+      triggerPopup();
+    }
+  });
 
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
-      exitPopup.classList.remove("active");
+      closePopup();
     });
   }
 
   exitPopup.addEventListener("click", (e) => {
     if (e.target === exitPopup) {
-      exitPopup.classList.remove("active");
+      closePopup();
     }
   });
 
@@ -141,20 +197,41 @@ function initExitIntent() {
       const email = document.getElementById("exit-email").value.trim();
 
       if (!name || !email) {
-        alert("Vui lòng điền đầy đủ Họ tên và Email để nhận sơ đồ tư duy miễn phí!");
+        alert("Vui lòng điền đầy đủ Họ tên và Email để nhận tài liệu miễn phí!");
         return;
       }
 
+      // Record successful submission (30 days block)
+      localStorage.setItem("exit_popup_submitted_time", String(Date.now()));
+
+      const driveLink = "https://drive.google.com/file/d/1ICk-C0edjf0hYQ_k9Xt5Cr7xqpJDfnOO/view?usp=sharing";
+
       if (popupBody) {
         popupBody.innerHTML = `
-          <div class="popup-success-card" style="text-align: center; padding: 30px 15px;">
-            <div style="font-size: 50px; margin-bottom: 15px; color: #10B981;">🎉</div>
-            <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px;">ĐĂNG KÝ THÀNH CÔNG!</h3>
-            <p style="color: #4B5563; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Sơ đồ tư duy <strong>Giảm Cân Không Bỏ Cuộc™</strong> đã được gửi tự động vào địa chỉ email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
+          <div class="popup-success-card" style="text-align: center; padding: 25px 15px;">
+            <div style="font-size: 50px; margin-bottom: 12px; color: #10B981;">🎉</div>
+            <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 10px; line-height: 1.3;">ĐĂNG KÝ THÀNH CÔNG!</h3>
+            <p style="color: #374151; font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+              Đăng ký thành công! Tài liệu <strong>7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo</strong> đã được gửi vào địa chỉ email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
             </p>
-            <p style="color: #6B7280; font-size: 14px;">Hãy kiểm tra hộp thư đến (và cả thư mục Quảng cáo/Spam) của bạn trong vài phút tới nhé!</p>
-            <button id="success-close-popup" class="btn-coral" style="margin-top: 20px; padding: 10px 25px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer;">Quay lại trang</button>
+            
+            <div style="background-color: #F3F4F6; border-radius: 8px; padding: 15px; margin-bottom: 20px; text-align: left; font-size: 13px; color: #4B5563; line-height: 1.5; border-left: 4px solid var(--color-primary);">
+              <div style="font-weight: 700; color: #111827; margin-bottom: 5px; border-bottom: 1px solid #E5E7EB; padding-bottom: 5px;">📧 Bản xem trước Email đã gửi:</div>
+              <span style="font-weight: 600; color: #111827;">Tiêu đề:</span> 🎁 Tài liệu miễn phí: 7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo<br>
+              <span style="font-weight: 600; color: #111827;">Nội dung:</span><br>
+              Chào ${name},<br>
+              Cảm ơn bạn đã đăng ký nhận tài liệu miễn phí.<br>
+              Bạn có thể tải tài liệu tại đây:<br>
+              <a href="${driveLink}" target="_blank" style="color: var(--color-accent); font-weight: bold; text-decoration: underline;">${driveLink}</a><br><br>
+              Sau khi đọc xong, bạn sẽ hiểu vì sao nhiều phụ nữ sau 30 tuổi càng ăn kiêng càng dễ tăng cân, mệt mỏi và bỏ cuộc giữa chừng.<br><br>
+              Thân mến,<br>
+              Hạnh Healthy
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+              <a href="${driveLink}" target="_blank" class="btn-coral" style="padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block;">TẢI TÀI LIỆU NGAY (DRIVE)</a>
+              <button id="success-close-popup" class="btn-coral" style="padding: 10px 20px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; background-color: #9CA3AF;">Quay lại trang</button>
+            </div>
           </div>
         `;
 
@@ -519,7 +596,7 @@ function initCheckoutSection() {
     const webAppUrl = "https://script.google.com/macros/s/AKfycbxVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
 
     statusPollingInterval = setInterval(() => {
-      fetch(`${webAppUrl}?action=check&memo=${encodeURIComponent(memo)}`)
+      fetch(`${webAppUrl}?memo=${encodeURIComponent(memo)}`)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -529,10 +606,10 @@ function initCheckoutSection() {
         .then(data => {
           console.log("Polling payment status response:", data);
           let status = "";
-          if (typeof data === "string") {
-            status = data;
-          } else if (data && typeof data === "object") {
+          if (data && typeof data === "object") {
             status = data.status || (data.data && data.data.status) || data.result || "";
+          } else if (typeof data === "string") {
+            status = data;
           }
 
           if (status && status.toUpperCase() === "PAID") {
