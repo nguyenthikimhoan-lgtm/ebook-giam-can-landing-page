@@ -179,7 +179,7 @@ function initExitIntent() {
         submitBtn.style.opacity = "0.7";
       }
 
-      const webAppUrl = "https://script.google.com/macros/s/AKfycbxMNJ8TLBYTcJTiuvjl8qpHTINsBOmiT9f3tIExmSsZmI-OIlZ4_52t4Ng8QjEeNCq9/exec";
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbz-OBa3zpEU7OFTm7cn7hWkexV-mHEnr2MISUSce6vk7leN8FTtHzoxaCkljrgbvnTO/exec";
 
       try {
         await fetch(webAppUrl, {
