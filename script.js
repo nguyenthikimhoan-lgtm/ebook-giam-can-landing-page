@@ -255,9 +255,9 @@ function initCheckoutSection() {
     
     let rawPhone = phoneInput ? phoneInput.value.trim() : "";
     let safePhone = rawPhone.replace(/[^0-9]/g, "");
-    let memo = "GC_CHO_SDT";
+    let memo = "GCCHOSDT";
     if (safePhone) {
-      memo = "GC_" + safePhone;
+      memo = "GC" + safePhone;
     }
     
     // Tạo URL động của VietQR
@@ -293,9 +293,9 @@ function initCheckoutSection() {
     let rawPhone = phoneInput.value.trim();
     let safePhone = rawPhone.replace(/[^0-9]/g, ""); // Chỉ giữ lại số chữ số
     if (safePhone) {
-      memoText.innerText = "GC_" + safePhone;
+      memoText.innerText = "GC" + safePhone;
     } else {
-      memoText.innerText = "GC_CHO_SDT";
+      memoText.innerText = "GCCHOSDT";
     }
     
     updateQR();
@@ -381,7 +381,7 @@ function initCheckoutSection() {
       const amount = selectedRadio ? selectedRadio.getAttribute("data-price") : "599000";
       
       const safePhone = phone.replace(/[^0-9]/g, "");
-      const memo = safePhone ? "GC_" + safePhone : "GC_CHO_SDT";
+      const memo = safePhone ? "GC" + safePhone : "GCCHOSDT";
 
       // Thiết lập payload đúng yêu cầu
       const payload = {
