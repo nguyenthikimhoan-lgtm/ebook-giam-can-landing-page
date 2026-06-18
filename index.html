@@ -1691,10 +1691,40 @@
                 <p class="qr-delivery-statement">⚡ Tài liệu được gửi tự động qua email sau khi thanh toán</p>
               </div>
 
-              <div class="qr-scanner-frame">
-                <img id="qr-image-dynamic" src="https://img.vietqr.io/image/BIDV-96247246868-compact2.png?amount=599000&addInfo=GCCHOSDT&accountName=NGUYEN%20THI%20KIM%20HOAN" alt="Mã QR Chuyển khoản BIDV NGUYEN THI KIM HOAN" class="qr-image-premium">
+              <!-- ACTIVE QR & COUNTDOWN CONTAINER -->
+              <div id="payment-qr-active-state">
+                <div class="qr-scanner-frame">
+                  <img id="qr-image-dynamic" src="https://img.vietqr.io/image/BIDV-96247246868-compact2.png?amount=599000&addInfo=GCCHOSDT&accountName=NGUYEN%20THI%20KIM%20HOAN" alt="Mã QR Chuyển khoản BIDV NGUYEN THI KIM HOAN" class="qr-image-premium">
+                </div>
+                <p class="qr-scan-hint">📲 Mở ứng dụng Ngân hàng, chọn <strong>Quét mã QR</strong> để chuyển tiền nhanh nhất!</p>
+                
+                <!-- Live Countdown -->
+                <div id="payment-countdown-container" class="payment-countdown-container">
+                  <div class="countdown-timer-box">
+                    ⏳ Vui lòng hoàn tất chuyển khoản trong <strong id="payment-timer">05:00</strong> phút.
+                  </div>
+                  <p class="countdown-instruction-text">
+                    Sau khi thanh toán thành công, hệ thống sẽ tự động gửi tài liệu vào email bạn đã đăng ký.
+                  </p>
+                </div>
               </div>
-              <p class="qr-scan-hint">📲 Mở ứng dụng Ngân hàng, chọn <strong>Quét mã QR</strong> để chuyển tiền nhanh nhất!</p>
+
+              <!-- SUCCESS STATE (Initially hidden) -->
+              <div id="payment-success-state" style="display: none;" class="payment-status-card success-card">
+                <div class="status-icon success-icon">🎉</div>
+                <h4 class="status-title success-title">Thanh toán thành công!</h4>
+                <p class="status-message success-message">Tài liệu đã được gửi về email của bạn.</p>
+                <p class="status-subtext success-subtext">Vui lòng kiểm tra Hộp thư đến, Quảng cáo hoặc Spam nếu chưa thấy email.</p>
+              </div>
+
+              <!-- EXPIRED STATE (Initially hidden) -->
+              <div id="payment-expired-state" style="display: none;" class="payment-status-card expired-card">
+                <div class="status-icon expired-icon">⚠️</div>
+                <h4 class="status-title expired-title">Mã thanh toán đã hết hạn.</h4>
+                <p class="status-subtext expired-subtext">Vui lòng bấm tạo lại mã thanh toán hoặc liên hệ Zalo hỗ trợ nếu bạn đã chuyển khoản.</p>
+                <button type="button" id="btn-restart-payment" class="btn-coral btn-restart-payment">Tạo lại mã thanh toán</button>
+              </div>
+
             </div>
 
             <!-- Bank Details List -->

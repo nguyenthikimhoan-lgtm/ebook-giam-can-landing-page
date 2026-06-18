@@ -2654,3 +2654,129 @@ strong {
   pointer-events: none;
 }
 
+/* ==========================================
+   27. POST-PAYMENT COUNTDOWN & STATUS STATES
+   ========================================== */
+.payment-countdown-container {
+  margin-top: 1.2rem;
+  padding: 1rem;
+  background: rgba(244, 63, 94, 0.05); /* very light rose tint */
+  border-radius: 12px;
+  border: 1px dashed rgba(244, 63, 94, 0.2);
+  text-align: center;
+}
+
+.countdown-timer-box {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+#payment-timer {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: inline-block;
+  min-width: 3.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums; /* Monospace numeric alignment */
+  background: #FFE4E6;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  margin-left: 0.25rem;
+}
+
+.countdown-instruction-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #4B5563;
+  line-height: 1.4;
+}
+
+/* Status Card Styles */
+.payment-status-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  margin-top: 1rem;
+  border: 1px solid #F3F4F6;
+  animation: fadeInStatus 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInStatus {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.status-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.status-title {
+  font-family: var(--font-subheading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.status-message {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.status-subtext {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+/* Success Card */
+.success-card {
+  border-color: #10B981;
+  background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%);
+}
+
+.success-title {
+  color: #065F46;
+}
+
+/* Expired Card */
+.expired-card {
+  border-color: #F87171;
+  background: linear-gradient(180deg, #FEF2F2 0%, #FFFFFF 100%);
+}
+
+.expired-title {
+  color: #991B1B;
+}
+
+.btn-restart-payment {
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(15, 90, 71, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-restart-payment:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(15, 90, 71, 0.3);
+}
+
+.btn-restart-payment:active {
+  transform: translateY(0);
+}
+
+

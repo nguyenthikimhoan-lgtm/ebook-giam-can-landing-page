@@ -412,7 +412,7 @@ function initCheckoutSection() {
           checkoutGrid.classList.remove("payment-hidden");
         }
         
-        // Hiển thị hộp thông báo thành công (Yêu cầu số 4)
+        // Hiển thị hộp thông báo thành công
         if (successBox) {
           successBox.innerHTML = `✅ <strong>Thành công:</strong> Thông tin đăng ký đã được lưu. Vui lòng quét mã QR để hoàn tất thanh toán.`;
           successBox.style.display = "block";
@@ -426,18 +426,21 @@ function initCheckoutSection() {
         if (paymentBlock) {
           paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+
+        // Bắt đầu đếm ngược 5 phút và kiểm tra thanh toán
+        startPaymentCountdown(memo);
       })
       .catch(error => {
         console.error("Error saving to Google Sheets:", error);
         
-        // Nếu lưu thất bại, vẫn hiển thị mã QR để khách thanh toán (Yêu cầu số 5)
+        // Nếu lưu thất bại, vẫn hiển thị mã QR để khách thanh toán
         if (checkoutGrid) {
           checkoutGrid.classList.remove("payment-hidden");
         }
         
-        // Hiển thị hộp thông báo lỗi nhỏ (Yêu cầu số 5)
+        // Hiển thị hộp thông báo lỗi nhỏ
         if (warningBox) {
-          warningBox.innerHTML = `⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu. Vui lòng chụp màn hình giao dịch hoặc liên hệ Zalo hỗ trợ.`;
+          warningBox.innerHTML = `⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu. Vui lòng kiểm tra lại kết nối hoặc liên hệ Zalo hỗ trợ.`;
           warningBox.style.display = "block";
         }
         if (successBox) {
@@ -449,6 +452,9 @@ function initCheckoutSection() {
         if (paymentBlock) {
           paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+
+        // Vẫn bắt đầu đếm ngược 5 phút và kiểm tra thanh toán để nhất quán trải nghiệm
+        startPaymentCountdown(memo);
       })
       .finally(() => {
         // Khôi phục trạng thái nút bấm
@@ -456,6 +462,173 @@ function initCheckoutSection() {
         btnSubmit.classList.remove("btn-disabled-checkout");
         btnSubmit.disabled = false;
       });
+    });
+  }
+
+  // ==========================================
+  // ĐẾM NGƯỢC THANH TOÁN & KIỂM TRA TRẠNG THÁI
+  // ==========================================
+  let countdownInterval = null;
+  let statusPollingInterval = null;
+
+  function startPaymentCountdown(memo) {
+    if (countdownInterval) clearInterval(countdownInterval);
+    if (statusPollingInterval) clearInterval(statusPollingInterval);
+
+    const qrActiveState = document.getElementById("payment-qr-active-state");
+    const successState = document.getElementById("payment-success-state");
+    const expiredState = document.getElementById("payment-expired-state");
+    const timerDisplay = document.getElementById("payment-timer");
+
+    if (qrActiveState) qrActiveState.style.display = "block";
+    if (successState) successState.style.display = "none";
+    if (expiredState) expiredState.style.display = "none";
+
+    let totalSeconds = 5 * 60; // 5 phút
+    if (timerDisplay) {
+      timerDisplay.innerText = "05:00";
+    }
+
+    countdownInterval = setInterval(() => {
+      totalSeconds--;
+
+      if (totalSeconds <= 0) {
+        clearInterval(countdownInterval);
+        clearInterval(statusPollingInterval);
+        if (timerDisplay) timerDisplay.innerText = "00:00";
+        showExpiredState();
+        return;
+      }
+
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+
+      const formattedMinutes = String(minutes).padStart(2, "0");
+      const formattedSeconds = String(seconds).padStart(2, "0");
+
+      if (timerDisplay) {
+        timerDisplay.innerText = `${formattedMinutes}:${formattedSeconds}`;
+      }
+    }, 1000);
+
+    // Bắt đầu kiểm tra trạng thái thanh toán từ Google Sheets mỗi 10 giây
+    startStatusPolling(memo);
+  }
+
+  function startStatusPolling(memo) {
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbxVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+
+    statusPollingInterval = setInterval(() => {
+      fetch(`${webAppUrl}?action=check&memo=${encodeURIComponent(memo)}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Polling payment status response:", data);
+          let status = "";
+          if (typeof data === "string") {
+            status = data;
+          } else if (data && typeof data === "object") {
+            status = data.status || (data.data && data.data.status) || data.result || "";
+          }
+
+          if (status && status.toUpperCase() === "PAID") {
+            showSuccessState();
+          }
+        })
+        .catch(error => {
+          console.warn("Lỗi khi kiểm tra trạng thái thanh toán:", error);
+        });
+    }, 10000); // Mỗi 10 giây
+  }
+
+  function showSuccessState() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    if (statusPollingInterval) clearInterval(statusPollingInterval);
+
+    const qrActiveState = document.getElementById("payment-qr-active-state");
+    const successState = document.getElementById("payment-success-state");
+    const expiredState = document.getElementById("payment-expired-state");
+
+    if (qrActiveState) qrActiveState.style.display = "none";
+    if (successState) successState.style.display = "block";
+    if (expiredState) expiredState.style.display = "none";
+
+    // Disable nút thanh toán chính
+    if (btnSubmit) {
+      btnSubmit.classList.add("btn-disabled-checkout");
+      btnSubmit.disabled = true;
+      const btnSpan = btnSubmit.querySelector("span");
+      if (btnSpan) btnSpan.innerText = "ĐÃ THANH TOÁN THÀNH CÔNG";
+    }
+  }
+
+  function showExpiredState() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    if (statusPollingInterval) clearInterval(statusPollingInterval);
+
+    const qrActiveState = document.getElementById("payment-qr-active-state");
+    const successState = document.getElementById("payment-success-state");
+    const expiredState = document.getElementById("payment-expired-state");
+
+    if (qrActiveState) qrActiveState.style.display = "none";
+    if (successState) successState.style.display = "none";
+    if (expiredState) expiredState.style.display = "block";
+  }
+
+  // Xử lý nút "Tạo lại mã thanh toán"
+  const btnRestart = document.getElementById("btn-restart-payment");
+  if (btnRestart) {
+    btnRestart.addEventListener("click", () => {
+      if (countdownInterval) clearInterval(countdownInterval);
+      if (statusPollingInterval) clearInterval(statusPollingInterval);
+
+      // Ẩn cột thanh toán bên phải
+      if (checkoutGrid) {
+        checkoutGrid.classList.add("payment-hidden");
+      }
+
+      // Kích hoạt lại nút nộp đơn
+      if (btnSubmit) {
+        btnSubmit.classList.remove("btn-disabled-checkout");
+        btnSubmit.disabled = false;
+        const btnSpan = btnSubmit.querySelector("span");
+        if (btnSpan) btnSpan.innerText = "THANH TOÁN ĐƠN HÀNG";
+      }
+
+      if (successBox) successBox.style.display = "none";
+      if (warningBox) warningBox.style.display = "none";
+
+      // Reset các trường thông tin và wizard bước chọn gói
+      const checkedRadio = document.querySelector('input[name="checkout-package"]:checked');
+      if (checkedRadio) {
+        checkedRadio.checked = false;
+      }
+
+      if (nameInput) nameInput.value = "";
+      if (phoneInput) phoneInput.value = "";
+      if (emailInput) emailInput.value = "";
+
+      updateProgressiveCheckout();
+      updateMemo();
+      updateSummary();
+
+      const qrActiveState = document.getElementById("payment-qr-active-state");
+      const successState = document.getElementById("payment-success-state");
+      const expiredState = document.getElementById("payment-expired-state");
+
+      if (qrActiveState) qrActiveState.style.display = "block";
+      if (successState) successState.style.display = "none";
+      if (expiredState) expiredState.style.display = "none";
+
+      // Cuộn mượt về đầu phần đăng ký
+      const target = document.getElementById("checkout-section");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   }
 }
