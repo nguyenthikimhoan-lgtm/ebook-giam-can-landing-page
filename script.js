@@ -140,43 +140,12 @@ function initExitIntent() {
     localStorage.setItem("exit_popup_closed_time", String(Date.now()));
   }
 
-  const isMobile = window.innerWidth < 768;
-
-  // Desktop exit intent
-  if (!isMobile) {
-    document.addEventListener("mouseleave", (e) => {
-      if (e.clientY < 20 && !hasTriggered) {
-        triggerPopup();
-      }
-    });
-  }
-
-  // Timeout triggers:
-  // Desktop: 45 seconds on page
-  // Mobile: 60 seconds on page
-  const delayMs = isMobile ? 60000 : 45000;
+  // Trigger popup 5-6 seconds (5.5 seconds = 5500ms) after visitor lands on the page
   setTimeout(() => {
     if (!hasTriggered) {
       triggerPopup();
     }
-  }, delayMs);
-
-  // Scroll triggers:
-  // Desktop: 55% scroll of the page
-  // Mobile: 60% scroll of the page
-  window.addEventListener("scroll", () => {
-    if (hasTriggered) return;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (docHeight <= 0) return;
-
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    const scrollThreshold = isMobile ? 60 : 55;
-
-    if (scrollPercent >= scrollThreshold) {
-      triggerPopup();
-    }
-  });
+  }, 5500);
 
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -204,40 +173,29 @@ function initExitIntent() {
       // Record successful submission (30 days block)
       localStorage.setItem("exit_popup_submitted_time", String(Date.now()));
 
-      const driveLink = "https://drive.google.com/file/d/1ICk-C0edjf0hYQ_k9Xt5Cr7xqpJDfnOO/view?usp=sharing";
-
       if (popupBody) {
         popupBody.innerHTML = `
-          <div class="popup-success-card" style="text-align: center; padding: 25px 15px;">
-            <div style="font-size: 50px; margin-bottom: 12px; color: #10B981;">🎉</div>
-            <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 10px; line-height: 1.3;">ĐĂNG KÝ THÀNH CÔNG!</h3>
-            <p style="color: #374151; font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-              Đăng ký thành công! Tài liệu <strong>7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo</strong> đã được gửi vào địa chỉ email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
+          <button class="close-exit-btn" id="success-close-x-btn" aria-label="Đóng popup">&times;</button>
+          <div class="popup-success-card" style="text-align: center; padding: 40px 24px;">
+            <div style="font-size: 55px; margin-bottom: 20px; color: #10B981; animation: gift-bounce 2s infinite;">🎉</div>
+            <h3 style="color: #0F5A47; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: bold; margin-bottom: 16px; line-height: 1.3; letter-spacing: 0.5px;">ĐĂNG KÝ THÀNH CÔNG!</h3>
+            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+              Tài liệu <strong>7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo</strong> đã được gửi vào email: <span style="color: #E11D48; font-weight: bold;">${email}</span>.
             </p>
-            
-            <div style="background-color: #F3F4F6; border-radius: 8px; padding: 15px; margin-bottom: 20px; text-align: left; font-size: 13px; color: #4B5563; line-height: 1.5; border-left: 4px solid var(--color-primary);">
-              <div style="font-weight: 700; color: #111827; margin-bottom: 5px; border-bottom: 1px solid #E5E7EB; padding-bottom: 5px;">📧 Bản xem trước Email đã gửi:</div>
-              <span style="font-weight: 600; color: #111827;">Tiêu đề:</span> 🎁 Tài liệu miễn phí: 7 Sai Lầm Khiến Phụ Nữ Sau 30 Tuổi Càng Ăn Kiêng Càng Béo<br>
-              <span style="font-weight: 600; color: #111827;">Nội dung:</span><br>
-              Chào ${name},<br>
-              Cảm ơn bạn đã đăng ký nhận tài liệu miễn phí.<br>
-              Bạn có thể tải tài liệu tại đây:<br>
-              <a href="${driveLink}" target="_blank" style="color: var(--color-accent); font-weight: bold; text-decoration: underline;">${driveLink}</a><br><br>
-              Sau khi đọc xong, bạn sẽ hiểu vì sao nhiều phụ nữ sau 30 tuổi càng ăn kiêng càng dễ tăng cân, mệt mỏi và bỏ cuộc giữa chừng.<br><br>
-              Thân mến,<br>
-              Hạnh Healthy
-            </div>
-            
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-              <a href="${driveLink}" target="_blank" class="btn-coral" style="padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block;">TẢI TÀI LIỆU NGAY (DRIVE)</a>
-              <button id="success-close-popup" class="btn-coral" style="padding: 10px 20px; border-radius: 6px; font-weight: bold; border: none; cursor: pointer; background-color: #9CA3AF;">Quay lại trang</button>
-            </div>
+            <p style="color: #6B7280; font-size: 14px; line-height: 1.5; margin-bottom: 30px;">
+              Vui lòng kiểm tra Hộp thư đến, Quảng cáo hoặc Spam để đọc tài liệu.
+            </p>
+            <button id="success-close-popup" class="btn-coral" style="padding: 12px 35px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; display: inline-block; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background-color 0.2s;">QUAY LẠI TRANG CHỦ</button>
           </div>
         `;
 
-        document.getElementById("success-close-popup").addEventListener("click", () => {
+        // Both QUAY LẠI TRANG CHỦ and the "x" button on the success screen close the popup
+        const closeSuccess = () => {
           exitPopup.classList.remove("active");
-        });
+        };
+
+        document.getElementById("success-close-popup").addEventListener("click", closeSuccess);
+        document.getElementById("success-close-x-btn").addEventListener("click", closeSuccess);
       }
     });
   }
