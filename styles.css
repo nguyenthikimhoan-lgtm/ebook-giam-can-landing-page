@@ -3573,7 +3573,7 @@ body {
   background-color: var(--color-bg-white) !important;
   border: 2px solid var(--color-border) !important;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible !important;
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-md);
