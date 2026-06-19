@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyMobileCTA();
   initSmoothScroll();      // Khởi tạo cuộn mượt và pre-select package cho các nút CTA
   initCheckoutSection();   // Khởi tạo logic tính toán đơn hàng & copy tại form checkout nhúng
+  
+  // CRO Redesign Features
+  initModuleAccordions();
+  initTestimonialCarousel();
+  initFloatingNavigation();
 });
 
 // ==========================================
@@ -140,12 +145,26 @@ function initExitIntent() {
     localStorage.setItem("exit_popup_closed_time", String(Date.now()));
   }
 
-  // Trigger popup 5-6 seconds (5.5 seconds = 5500ms) after visitor lands on the page
-  setTimeout(() => {
-    if (!hasTriggered) {
-      triggerPopup();
-    }
-  }, 5500);
+  // Detect if mobile/tablet
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+
+  if (isMobile) {
+    // Mobile: trigger popup 20 seconds (20000ms) after visitor lands on the page
+    setTimeout(() => {
+      if (!hasTriggered) {
+        triggerPopup();
+      }
+    }, 20000);
+  } else {
+    // Desktop: trigger popup on Exit Intent (mouseleave from top viewport)
+    document.addEventListener("mouseleave", (e) => {
+      if (e.clientY < 20) {
+        if (!hasTriggered) {
+          triggerPopup();
+        }
+      }
+    });
+  }
 
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
@@ -304,12 +323,10 @@ function initCheckoutSection() {
   const summaryOriginalPrice = document.getElementById("summary-original-price");
   const summaryTotalPrice = document.getElementById("summary-total-price");
   const bankTransferAmount = document.getElementById("bank-transfer-amount");
-  const qrPaymentAmount = document.getElementById("qr-payment-amount");
   
   const boxPackage = document.getElementById("checkout-box-package");
   const boxSummary = document.getElementById("checkout-box-summary");
   const boxAction = document.getElementById("checkout-box-action");
-  const checkoutGrid = document.querySelector(".checkout-grid-premium");
   
   const originalPrices = {
     starter: "800.000đ",
@@ -353,7 +370,6 @@ function initCheckoutSection() {
     if (summaryPackageName) summaryPackageName.innerText = label;
     if (summaryTotalPrice) summaryTotalPrice.innerText = formattedPrice;
     if (bankTransferAmount) bankTransferAmount.innerText = formattedPrice;
-    if (qrPaymentAmount) qrPaymentAmount.innerText = formattedPrice;
     if (summaryOriginalPrice && originalPrices[val]) {
       summaryOriginalPrice.innerText = originalPrices[val];
     }
@@ -430,18 +446,129 @@ function initCheckoutSection() {
   const checkoutForm = document.getElementById("checkout-form-embedded");
   const btnSubmit = document.getElementById("btn-submit-checkout");
   const spinner = document.getElementById("spinner-checkout");
-  const successBox = document.getElementById("checkout-success-box");
   const warningBox = document.getElementById("checkout-warning-box");
+
+  // Elements for QR Modal
+  const paymentModal = document.getElementById("payment-qr-modal");
+  const closePaymentModal = document.getElementById("close-payment-modal");
+  const btnSuccessClose = document.getElementById("btn-success-close-modal");
+  const btnDownloadQR = document.getElementById("btn-download-qr");
+  const btnCopyAmount = document.getElementById("btn-copy-amount");
+  const btnCopyMemo = document.getElementById("btn-copy-memo");
+
+  let countdownInterval = null;
+  let statusPollingInterval = null;
+
+  function showPaymentModal(memo) {
+    if (paymentModal) paymentModal.classList.add("active");
+    
+    // Hide sticky CTA
+    const stickyCta = document.getElementById("mobile-sticky-cta");
+    if (stickyCta) {
+      stickyCta.style.setProperty("display", "none", "important");
+    }
+    
+    startPaymentCountdown(memo);
+  }
+
+  function hidePaymentModal() {
+    if (paymentModal) paymentModal.classList.remove("active");
+    
+    // Restore sticky CTA
+    const stickyCta = document.getElementById("mobile-sticky-cta");
+    if (stickyCta) {
+      stickyCta.style.display = "";
+    }
+    
+    if (countdownInterval) clearInterval(countdownInterval);
+    if (statusPollingInterval) clearInterval(statusPollingInterval);
+  }
+
+  if (closePaymentModal) {
+    closePaymentModal.addEventListener("click", hidePaymentModal);
+  }
+  if (btnSuccessClose) {
+    btnSuccessClose.addEventListener("click", () => {
+      hidePaymentModal();
+      resetCheckoutForm();
+    });
+  }
+
+  if (btnCopyAmount) {
+    btnCopyAmount.addEventListener("click", () => {
+      let selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+      let amount = "599000";
+      if (selectedRadio) {
+        amount = selectedRadio.getAttribute("data-price") || "599000";
+      }
+      copyText(amount, btnCopyAmount);
+    });
+  }
+
+  if (btnCopyMemo) {
+    btnCopyMemo.addEventListener("click", () => {
+      let rawPhone = phoneInput ? phoneInput.value.trim() : "";
+      let safePhone = rawPhone.replace(/[^0-9]/g, "");
+      let memo = safePhone ? "GC" + safePhone : "GCCHOSDT";
+      copyText(memo, btnCopyMemo);
+    });
+  }
+
+  async function downloadQR() {
+    if (!qrImage || !qrImage.src) return;
+    
+    const originalText = btnDownloadQR ? btnDownloadQR.innerHTML : "📥 TẢI MÃ QR VỀ MÁY";
+    if (btnDownloadQR) {
+      btnDownloadQR.disabled = true;
+      btnDownloadQR.innerHTML = "⌛ ĐANG TẢI...";
+    }
+
+    try {
+      const response = await fetch(qrImage.src);
+      if (!response.ok) throw new Error("Network response error");
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "VietQR-Giam-Can-Khong-Bo-Cuoc.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.warn("Failed to download via Blob CORS, fallback to open in new tab:", error);
+      window.open(qrImage.src, "_blank");
+    } finally {
+      if (btnDownloadQR) {
+        btnDownloadQR.disabled = false;
+        btnDownloadQR.innerHTML = originalText;
+      }
+    }
+  }
+
+  if (btnDownloadQR) {
+    btnDownloadQR.addEventListener("click", downloadQR);
+  }
+
+  function resetCheckoutForm() {
+    if (nameInput) nameInput.value = "";
+    if (phoneInput) phoneInput.value = "";
+    if (emailInput) emailInput.value = "";
+    packageRadios.forEach(radio => radio.checked = false);
+    updateSummary();
+    updateMemo();
+    updateProgressiveCheckout();
+  }
 
   if (checkoutForm && btnSubmit) {
     checkoutForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // Hiển thị trạng thái Loading trên nút bấm, ẩn các hộp thông báo cũ
+      // Hiển thị trạng thái Loading trên nút bấm, ẩn thông báo cảnh báo cũ
       if (spinner) spinner.style.display = "inline-block";
       btnSubmit.classList.add("btn-disabled-checkout");
       btnSubmit.disabled = true;
-      if (successBox) successBox.style.display = "none";
       if (warningBox) warningBox.style.display = "none";
 
       // Thu thập thông tin từ form
@@ -480,54 +607,19 @@ function initCheckoutSection() {
         body: JSON.stringify(payload)
       })
       .then(() => {
-        // Lưu thành công -> Mở khóa hiển thị phần thanh toán VietQR
-        if (checkoutGrid) {
-          checkoutGrid.classList.remove("payment-hidden");
-        }
-        
-        // Hiển thị hộp thông báo thành công
-        if (successBox) {
-          successBox.innerHTML = `✅ <strong>Thành công:</strong> Thông tin đăng ký đã được lưu. Vui lòng quét mã QR để hoàn tất thanh toán.`;
-          successBox.style.display = "block";
-        }
-        if (warningBox) {
-          warningBox.style.display = "none";
-        }
-        
-        // Cuộn tới phần thanh toán VietQR
-        const paymentBlock = document.querySelector(".payment-block-premium");
-        if (paymentBlock) {
-          paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        // Bắt đầu đếm ngược 5 phút và kiểm tra thanh toán
-        startPaymentCountdown(memo);
+        // Lưu thành công -> Mở modal thanh toán
+        showPaymentModal(memo);
       })
       .catch(error => {
         console.error("Error saving to Google Sheets:", error);
         
-        // Nếu lưu thất bại, vẫn hiển thị mã QR để khách thanh toán
-        if (checkoutGrid) {
-          checkoutGrid.classList.remove("payment-hidden");
-        }
-        
-        // Hiển thị hộp thông báo lỗi nhỏ
+        // Nếu lưu thất bại, hiển thị cảnh báo nhưng vẫn cho phép khách thanh toán để tăng CRO
         if (warningBox) {
-          warningBox.innerHTML = `⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu. Vui lòng kiểm tra lại kết nối hoặc liên hệ Zalo hỗ trợ.`;
+          warningBox.innerHTML = `⚠️ <strong>Lưu ý:</strong> Thông tin đăng ký chưa được lưu tự động. Vui lòng hoàn tất chuyển khoản và liên hệ Zalo để kích hoạt ngay.`;
           warningBox.style.display = "block";
         }
-        if (successBox) {
-          successBox.style.display = "none";
-        }
         
-        // Cuộn tới phần thanh toán VietQR
-        const paymentBlock = document.querySelector(".payment-block-premium");
-        if (paymentBlock) {
-          paymentBlock.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        // Vẫn bắt đầu đếm ngược 5 phút và kiểm tra thanh toán để nhất quán trải nghiệm
-        startPaymentCountdown(memo);
+        showPaymentModal(memo);
       })
       .finally(() => {
         // Khôi phục trạng thái nút bấm
@@ -537,12 +629,6 @@ function initCheckoutSection() {
       });
     });
   }
-
-  // ==========================================
-  // ĐẾM NGƯỢC THANH TOÁN & KIỂM TRA TRẠNG THÁI
-  // ==========================================
-  let countdownInterval = null;
-  let statusPollingInterval = null;
 
   function startPaymentCountdown(memo) {
     if (countdownInterval) clearInterval(countdownInterval);
@@ -629,14 +715,6 @@ function initCheckoutSection() {
     if (qrActiveState) qrActiveState.style.display = "none";
     if (successState) successState.style.display = "block";
     if (expiredState) expiredState.style.display = "none";
-
-    // Disable nút thanh toán chính
-    if (btnSubmit) {
-      btnSubmit.classList.add("btn-disabled-checkout");
-      btnSubmit.disabled = true;
-      const btnSpan = btnSubmit.querySelector("span");
-      if (btnSpan) btnSpan.innerText = "ĐÃ THANH TOÁN THÀNH CÔNG";
-    }
   }
 
   function showExpiredState() {
@@ -656,47 +734,9 @@ function initCheckoutSection() {
   const btnRestart = document.getElementById("btn-restart-payment");
   if (btnRestart) {
     btnRestart.addEventListener("click", () => {
-      if (countdownInterval) clearInterval(countdownInterval);
-      if (statusPollingInterval) clearInterval(statusPollingInterval);
-
-      // Ẩn cột thanh toán bên phải
-      if (checkoutGrid) {
-        checkoutGrid.classList.add("payment-hidden");
-      }
-
-      // Kích hoạt lại nút nộp đơn
-      if (btnSubmit) {
-        btnSubmit.classList.remove("btn-disabled-checkout");
-        btnSubmit.disabled = false;
-        const btnSpan = btnSubmit.querySelector("span");
-        if (btnSpan) btnSpan.innerText = "THANH TOÁN ĐƠN HÀNG";
-      }
-
-      if (successBox) successBox.style.display = "none";
-      if (warningBox) warningBox.style.display = "none";
-
-      // Reset các trường thông tin và wizard bước chọn gói
-      const checkedRadio = document.querySelector('input[name="checkout-package"]:checked');
-      if (checkedRadio) {
-        checkedRadio.checked = false;
-      }
-
-      if (nameInput) nameInput.value = "";
-      if (phoneInput) phoneInput.value = "";
-      if (emailInput) emailInput.value = "";
-
-      updateProgressiveCheckout();
-      updateMemo();
-      updateSummary();
-
-      const qrActiveState = document.getElementById("payment-qr-active-state");
-      const successState = document.getElementById("payment-success-state");
-      const expiredState = document.getElementById("payment-expired-state");
-
-      if (qrActiveState) qrActiveState.style.display = "block";
-      if (successState) successState.style.display = "none";
-      if (expiredState) expiredState.style.display = "none";
-
+      hidePaymentModal();
+      resetCheckoutForm();
+      
       // Cuộn mượt về đầu phần đăng ký
       const target = document.getElementById("checkout-section");
       if (target) {
@@ -706,9 +746,174 @@ function initCheckoutSection() {
   }
 }
 
+// ==========================================
+// 8. ĐIỀU KHIỂN ACCORDION CHO CÁC MODULES
+// ==========================================
+function initModuleAccordions() {
+  const triggers = document.querySelectorAll(".module-accordion-trigger");
+  triggers.forEach(trigger => {
+    trigger.addEventListener("click", () => {
+      const contentId = trigger.getAttribute("data-target");
+      const content = document.getElementById(contentId);
+      const icon = trigger.querySelector(".module-accordion-icon");
+      
+      if (!content) return;
+      
+      // Toggle active classes
+      content.classList.toggle("active");
+      trigger.classList.toggle("active");
+      
+      if (content.classList.contains("active")) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        if (icon) icon.innerText = "▲";
+      } else {
+        content.style.maxHeight = null;
+        if (icon) icon.innerText = "▼";
+      }
+    });
+  });
+}
 
 // ==========================================
-// 8. HÀM SAO CHÉP TEXT CHO TOÀN BỘ TRANG (ROBUST FALLBACK COPY)
+// 9. SWIPE CAROUSEL CHO TESTIMONIALS
+// ==========================================
+function initTestimonialCarousel() {
+  const track = document.querySelector(".testimonial-carousel-track");
+  const dots = document.querySelectorAll(".indicator-dot");
+  if (!track) return;
+
+  // Cập nhật indicator dots khi scroll ngang
+  track.addEventListener("scroll", () => {
+    const slideWidth = track.clientWidth;
+    const scrollLeft = track.scrollLeft;
+    const activeIndex = Math.round(scrollLeft / slideWidth);
+    
+    dots.forEach((dot, index) => {
+      if (index === activeIndex) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
+  });
+
+  // Click vào các dot để scroll mượt tới slide tương ứng
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+      const slideIndex = parseInt(dot.getAttribute("data-slide"), 10);
+      const slideWidth = track.clientWidth;
+      track.scrollTo({
+        left: slideIndex * slideWidth,
+        behavior: "smooth"
+      });
+    });
+  });
+}
+
+// ==========================================
+// 10. ĐIỀU KHIỂN FLOATING SHORTCUTS & MENU TOC
+// ==========================================
+function initFloatingNavigation() {
+  const btnToc = document.getElementById("btn-toc");
+  const tocDrawer = document.getElementById("toc-drawer-overlay");
+  const closeToc = document.getElementById("close-toc-drawer");
+  const btnScrollTop = document.getElementById("btn-scroll-top");
+  const btnScrollCheckout = document.getElementById("btn-scroll-checkout");
+  const tocLinks = document.querySelectorAll(".toc-list a");
+
+  if (btnToc && tocDrawer) {
+    btnToc.addEventListener("click", () => {
+      tocDrawer.classList.add("active");
+    });
+  }
+
+  if (closeToc && tocDrawer) {
+    closeToc.addEventListener("click", () => {
+      tocDrawer.classList.remove("active");
+    });
+  }
+
+  if (tocDrawer) {
+    tocDrawer.addEventListener("click", (e) => {
+      if (e.target === tocDrawer) {
+        tocDrawer.classList.remove("active");
+      }
+    });
+  }
+
+  tocLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href");
+      const target = document.querySelector(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (tocDrawer) {
+        tocDrawer.classList.remove("active");
+      }
+    });
+  });
+
+  if (btnScrollTop) {
+    btnScrollTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  if (btnScrollCheckout) {
+    btnScrollCheckout.addEventListener("click", () => {
+      const checkout = document.getElementById("checkout-section");
+      if (checkout) {
+        checkout.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  // Ẩn/hiện toàn bộ container shortcuts dựa trên điều kiện hiển thị CTA
+  const navContainer = document.querySelector(".floating-nav-container");
+  const itemScrollTop = document.getElementById("floating-item-top");
+
+  function handleScrollVisibility() {
+    const scrollY = window.scrollY;
+    const isMobile = window.innerWidth < 768;
+    
+    const heroSection = document.querySelector(".hero-section");
+    const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+    let shouldShowContainer = (scrollY > heroHeight);
+
+    // Sync directly with the mobile sticky CTA state if it's hidden (e.g. inside payment modal)
+    if (isMobile) {
+      const stickyCta = document.getElementById("mobile-sticky-cta");
+      if (stickyCta && (stickyCta.style.display === "none" || stickyCta.style.getPropertyValue("display") === "none")) {
+        shouldShowContainer = false;
+      }
+    }
+
+    if (navContainer) {
+      if (shouldShowContainer) {
+        navContainer.classList.add("active");
+      } else {
+        navContainer.classList.remove("active");
+      }
+    }
+
+    if (itemScrollTop) {
+      if (shouldShowContainer) {
+        itemScrollTop.style.display = "flex";
+      } else {
+        itemScrollTop.style.display = "none";
+      }
+    }
+  }
+
+  window.addEventListener("scroll", handleScrollVisibility);
+  window.addEventListener("resize", handleScrollVisibility);
+  handleScrollVisibility(); // Chạy kiểm tra ban đầu khi tải trang
+}
+
+// ==========================================
+// 11. HÀM SAO CHÉP TEXT CHO TOÀN BỘ TRANG (ROBUST FALLBACK COPY)
 // ==========================================
 function copyText(text, btn) {
   // Phương án dự phòng cho trình duyệt bị sandbox (như trình duyệt di động Facebook)
@@ -740,7 +945,7 @@ function copyText(text, btn) {
   executeCopy()
     .then(() => {
       const originalText = btn.innerText;
-      btn.innerText = "ĐÃ COPY";
+      btn.innerText = "ĐA COPY";
       btn.classList.add("copied");
       setTimeout(() => {
         btn.innerText = originalText;
