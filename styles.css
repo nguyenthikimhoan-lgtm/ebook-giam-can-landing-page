@@ -194,7 +194,7 @@ strong {
 /* --- 8. SECTION: HERO (GIỚI THIỆU) --- */
 .hero-section {
   padding: 2.25rem 0 3.5rem 0; /* Tight, premium above-the-fold spacing */
-  background: radial-gradient(circle at top, #061E18 0%, #020B08 100%) !important;
+  background-color: var(--color-bg-light) !important;
 }
 
 .target-badge {
@@ -329,8 +329,8 @@ strong {
 }
 
 .hero-bullets {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-bg-white) !important;
+  border: 1.5px solid var(--color-border) !important;
   padding: 2rem;
   border-radius: 16px;
   backdrop-filter: blur(10px);
@@ -438,8 +438,8 @@ strong {
 }
 
 .hero-ebook-support {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--color-bg-white) !important;
+  border: 1.5px solid var(--color-border) !important;
   padding: 1.5rem;
   border-radius: 16px;
   display: flex;
@@ -450,8 +450,8 @@ strong {
 }
 
 .hero-ebook-support:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--color-bg-white) !important;
+  border-color: var(--color-primary-light) !important;
 }
 
 .hero-ebook-secondary {
@@ -481,9 +481,9 @@ strong {
 
 /* --- 9. SECTION: TRUST BAR (BAO CHỨNG ĐỘ TIN CẬY) --- */
 .trust-bar {
-  background-color: var(--color-primary-dark);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--color-bg-white) !important;
+  border-top: 1px solid var(--color-border) !important;
+  border-bottom: 1px solid var(--color-border) !important;
   padding: 1.5rem 0;
 }
 
@@ -498,7 +498,7 @@ strong {
 .trust-item {
   display: flex;
   align-items: center;
-  color: var(--color-bg-light);
+  color: var(--color-text-main) !important;
   font-family: var(--font-subheading);
   font-weight: 600;
   font-size: 0.95rem;
@@ -2459,8 +2459,8 @@ strong {
 }
 
 .trust-pill {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: var(--color-bg-white) !important;
+  border: 1.5px solid var(--color-border) !important;
   color: #FFFFFF;
   padding: 0.55rem 1.35rem;
   border-radius: 12px; /* Premium smooth card shape */
@@ -2475,8 +2475,8 @@ strong {
 }
 
 .trust-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(251, 191, 36, 0.4); /* Highlight with subtle gold glow */
+  background-color: var(--color-bg-white) !important;
+  border-color: var(--color-primary-light) !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
@@ -2932,7 +2932,7 @@ body {
 
 /* --- PAIN CHECKLIST SECTION --- */
 .pain-checklist-section {
-  background-color: var(--color-bg-dark) !important;
+  background-color: var(--color-bg-light) !important;
   border-bottom: 2px solid var(--color-border);
 }
 
