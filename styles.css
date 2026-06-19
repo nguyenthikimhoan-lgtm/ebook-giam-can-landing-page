@@ -3757,3 +3757,57 @@ body {
   pointer-events: none;
 }
 
+/* --- OVERRIDES FOR PRICING CARDS TO ENSURE PERFECT READABILITY ON WHITE BACKGROUND --- */
+.pricing-card, 
+.pricing-card p, 
+.pricing-card li, 
+.pricing-card .package-desc, 
+.pricing-card .package-benefits li {
+  color: #1F2937 !important; /* Force high contrast dark charcoal text */
+}
+
+.pricing-card h2, 
+.pricing-card h3, 
+.pricing-card h4, 
+.pricing-card strong, 
+.pricing-card.popular-highlight h3,
+.pricing-card.popular-highlight h2,
+.pricing-card.popular-highlight strong {
+  color: #0F5A47 !important; /* Force beautiful deep green for headers and bold elements */
+}
+
+.pricing-card .package-desc, 
+.pricing-card.popular-highlight .package-desc {
+  color: #374151 !important; /* Force clear dark gray for descriptions */
+}
+
+.pricing-card .package-price-sub,
+.pricing-card.popular-highlight .package-price-sub {
+  color: #4B5563 !important; /* Force dark gray subtext */
+}
+
+.pricing-card .package-benefits li.not-included,
+.pricing-card.popular-highlight .package-benefits li.not-included {
+  color: #9CA3AF !important; /* Clear light gray for strikethrough excluded benefits */
+  text-decoration: line-through !important;
+}
+
+.pricing-card .package-fits-for,
+.pricing-card.popular-highlight .package-fits-for {
+  background-color: rgba(16, 185, 129, 0.05) !important;
+  border-left: 4px solid #10B981 !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  color: #0F5A47 !important; /* Green text in the fits for box */
+}
+
+.pricing-card .package-fits-for strong,
+.pricing-card.popular-highlight .package-fits-for strong {
+  color: #0F5A47 !important; /* Deep green bold label */
+}
+
+.popular-badge {
+  color: #FFFFFF !important; /* Force white text on popular badge */
+}
+
