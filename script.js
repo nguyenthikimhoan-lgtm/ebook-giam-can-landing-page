@@ -336,6 +336,50 @@ function initCheckoutSection() {
   const boxSummary = document.getElementById("checkout-box-summary");
   const boxAction = document.getElementById("checkout-box-action");
   
+  // Tối ưu hóa UX Form trên Mobile: Tự động cuộn ô nhập liệu đang chọn lên 1/3 phía trên màn hình
+  // Đồng thời hỗ trợ phím "Enter" / "Next" trên bàn phím ảo để tự động chuyển sang ô tiếp theo mượt mà
+  const formInputs = [nameInput, phoneInput, emailInput];
+  formInputs.forEach((input, index) => {
+    if (!input) return;
+
+    input.addEventListener("focus", () => {
+      if (window.innerWidth < 768) {
+        // Đợi 350ms để bàn phím ảo di động mở ra hoàn toàn và điều chỉnh viewport
+        setTimeout(() => {
+          const rect = input.getBoundingClientRect();
+          const absoluteTop = window.scrollY + rect.top;
+          // Đặt ô nhập liệu hoạt động ở khoảng 25% chiều cao màn hình hiển thị (1/3 phía trên)
+          const targetY = absoluteTop - (window.innerHeight * 0.25);
+          
+          window.scrollTo({
+            top: Math.max(0, targetY),
+            behavior: "smooth"
+          });
+        }, 350);
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const nextInput = formInputs[index + 1];
+        if (nextInput) {
+          nextInput.focus();
+        } else {
+          // Nếu là ô cuối cùng (Email), tắt tập trung để ẩn bàn phím ảo đi
+          input.blur();
+          // Cuộn mượt mà đến khối chọn gói sản phẩm vừa được mở khóa để hướng dẫn hành động tiếp theo
+          const packageBox = document.getElementById("checkout-box-package");
+          if (packageBox) {
+            setTimeout(() => {
+              packageBox.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 100);
+          }
+        }
+      }
+    });
+  });
+  
   const originalPrices = {
     starter: "800.000đ",
     complete: "1.200.000đ",

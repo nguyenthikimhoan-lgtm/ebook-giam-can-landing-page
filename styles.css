@@ -3514,6 +3514,11 @@ body {
   .floating-nav-container {
     bottom: 95px !important;
   }
+  /* Ngăn ngừa iOS Safari tự động zoom khi chọn ô nhập liệu bằng cách đặt font-size tối thiểu 16px */
+  #checkout-form-embedded input,
+  .checkout-form-group-premium input {
+    font-size: 16px !important;
+  }
 }
 
 /* Custom Keyword Highlights for CRO and Direct Response */
