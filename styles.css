@@ -3123,11 +3123,20 @@ body {
 .floating-nav-container {
   position: fixed;
   bottom: 90px; /* Elevated to avoid overlap with sticky bottom CTA */
-  right: 20px;
+  right: -100px; /* Hidden by default, slides in when active */
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   z-index: 1000;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-nav-container.active {
+  right: 20px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .floating-btn {

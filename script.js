@@ -265,12 +265,16 @@ function initStickyMobileCTA() {
   const stickyCta = document.getElementById("mobile-sticky-cta");
   if (!stickyCta) return;
 
-  window.addEventListener("scroll", () => {
+  const checkoutSection = document.getElementById("checkout-section");
+
+  const handleScroll = () => {
     if (window.innerWidth < 768) {
       const heroSection = document.querySelector(".hero-section");
       const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+      const checkoutOffset = checkoutSection ? checkoutSection.offsetTop : Infinity;
       
-      if (window.scrollY > heroHeight) {
+      // Hiển thị nếu cuộn qua Hero nhưng chưa đến phần đăng ký (cách 300px)
+      if (window.scrollY > heroHeight && window.scrollY < checkoutOffset - 300) {
         stickyCta.classList.add("active");
       } else {
         stickyCta.classList.remove("active");
@@ -278,7 +282,11 @@ function initStickyMobileCTA() {
     } else {
       stickyCta.classList.remove("active");
     }
-  });
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleScroll);
+  handleScroll();
 }
 
 // ==========================================
@@ -400,15 +408,8 @@ function initCheckoutSection() {
     
     if (nameFilled && phoneFilled && emailFilled && emailValid) {
       if (boxPackage) boxPackage.style.display = "block";
-      
-      const selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
-      if (selectedRadio) {
-        if (boxSummary) boxSummary.style.display = "block";
-        if (boxAction) boxAction.style.display = "block";
-      } else {
-        if (boxSummary) boxSummary.style.display = "none";
-        if (boxAction) boxAction.style.display = "none";
-      }
+      if (boxSummary) boxSummary.style.display = "block";
+      if (boxAction) boxAction.style.display = "block";
     } else {
       if (boxPackage) boxPackage.style.display = "none";
       if (boxSummary) boxSummary.style.display = "none";
@@ -880,7 +881,12 @@ function initFloatingNavigation() {
     
     const heroSection = document.querySelector(".hero-section");
     const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
-    let shouldShowContainer = (scrollY > heroHeight);
+    
+    const checkoutSection = document.getElementById("checkout-section");
+    const checkoutOffset = checkoutSection ? checkoutSection.offsetTop : Infinity;
+    
+    // Hiển thị nếu cuộn qua Hero nhưng chưa đến phần đăng ký (cách 300px)
+    let shouldShowContainer = (scrollY > heroHeight && scrollY < checkoutOffset - 300);
 
     // Sync directly with the mobile sticky CTA state if it's hidden (e.g. inside payment modal)
     if (isMobile) {
@@ -899,7 +905,8 @@ function initFloatingNavigation() {
     }
 
     if (itemScrollTop) {
-      if (shouldShowContainer) {
+      const deepScroll = scrollY > window.innerHeight * 3;
+      if (shouldShowContainer && deepScroll) {
         itemScrollTop.style.display = "flex";
       } else {
         itemScrollTop.style.display = "none";
