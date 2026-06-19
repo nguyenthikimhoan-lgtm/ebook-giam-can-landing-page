@@ -2200,11 +2200,47 @@ strong {
 }
 
 .popup-form-body p {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151 !important;
   text-align: center;
   margin-bottom: 1.5rem;
 }
+
+.popup-form-body strong {
+  color: #0F5A47 !important;
+  font-weight: 700 !important;
+}
+
+/* Specific high-contrast overrides for exit-intent popup contents to prevent global white/light-text styles on white background */
+.exit-popup-content-box p,
+.popup-success-card p {
+  color: #374151 !important;
+  font-size: 1rem !important;
+  line-height: 1.65 !important;
+}
+
+.exit-popup-content-box strong,
+.popup-success-card strong {
+  color: #0F5A47 !important;
+  font-weight: 700 !important;
+}
+
+.exit-popup-content-box h3,
+.popup-success-card h3 {
+  color: #0F5A47 !important;
+}
+
+.popup-success-card p:last-of-type {
+  color: #6B7280 !important; /* Muted dark gray for details */
+  font-size: 0.875rem !important;
+}
+
+.popup-success-card span {
+  color: #E11D48 !important; /* Standout color for submitted email address */
+  font-weight: bold !important;
+}
+
 
 .popup-form-body .btn-coral {
   width: 100%;
