@@ -2051,47 +2051,37 @@
     function submitSurveyData() {
       console.log("Submitting survey data...");
       
-      const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
+      const genderVal = surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender);
+      const emailVal = surveyData.email || "Không cung cấp";
       
-      const payload = {
-        Timestamp: new Date().toISOString(),
-        Gender: surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender),
-        Age: surveyData.age,
-        Height: surveyData.height,
-        CurrentWeight: surveyData.currentWeight,
-        GoalWeight: surveyData.goalWeight,
-        Difficulty: surveyData.struggle,
-        BMI: surveyData.bmi,
-        EstimatedDays: surveyData.durationDays,
-        Source: "Survey BMI",
-        Email: surveyData.email || "Không cung cấp"
-      };
-
-      // Execute network transaction in background with mode: "no-cors" to bypass browser CORS preflight blocks
-      fetch(webAppUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(response => {
-        console.log("Survey data submitted");
-        
-        // Fire Meta Pixel Lead Event for successful survey submit
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead');
-          console.log("Meta Pixel Lead tracked for survey.");
-        }
-        
-        revealReportPage();
-      })
-      .catch(error => {
-        console.error("Error logging survey results to Google Sheets:", error);
-        // Reveal results page to user even if sheet fails, prioritizing CRO
-        revealReportPage();
+      const params = new URLSearchParams({
+        gender: genderVal,
+        age: surveyData.age || "",
+        height: surveyData.height || "",
+        currentWeight: surveyData.currentWeight || "",
+        goalWeight: surveyData.goalWeight || "",
+        difficulty: surveyData.struggle || "",
+        bmi: surveyData.bmi || "",
+        estimatedDays: surveyData.durationDays || "",
+        source: "SurveyV1",
+        email: emailVal
       });
+      
+      const url = `${GOOGLE_SHEETS_WEB_APP_URL}?${params.toString()}`;
+      
+      // Send data using Image GET Beacon to bypass all CORS and tracking blocks perfectly
+      const img = new Image();
+      img.src = url;
+      
+      console.log("Survey data sent to Google Sheet", url);
+      
+      // Fire Meta Pixel Lead Event for successful survey submit
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead');
+        console.log("Meta Pixel Lead tracked for survey.");
+      }
+      
+      revealReportPage();
     }
 
     // Optional email submit on results page
@@ -2118,52 +2108,36 @@
       surveyData.email = emailVal;
       
       console.log("Submitting optional email...");
-      const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
+      const genderVal = surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender);
       
-      const payload = {
-        Timestamp: new Date().toISOString(),
-        Gender: surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender),
-        Age: surveyData.age,
-        Height: surveyData.height,
-        CurrentWeight: surveyData.currentWeight,
-        GoalWeight: surveyData.goalWeight,
-        Difficulty: surveyData.struggle,
-        BMI: surveyData.bmi,
-        EstimatedDays: surveyData.durationDays,
-        Source: "Survey BMI (Email Step)",
-        Email: surveyData.email
-      };
-
-      fetch(webAppUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(response => {
-        console.log("Optional email synced to sheet.");
-        
-        // Show success visual state
-        statusText.style.display = "block";
-        statusText.style.color = "var(--color-primary)";
-        statusText.innerHTML = "✓ Gửi thành công! Lộ trình chi tiết đang được chuyển vào hộp thư của bạn.";
-        
-        // Hide form inputs nicely
-        emailInput.style.display = "none";
-        submitBtn.style.display = "none";
-      })
-      .catch(error => {
-        console.error("Error logging email:", error);
-        
-        // Friendly fallback success
-        statusText.style.display = "block";
-        statusText.style.color = "var(--color-primary)";
-        statusText.innerHTML = "✓ Đã lưu thành công email của bạn. Vui lòng kiểm tra hộp thư.";
-        emailInput.style.display = "none";
-        submitBtn.style.display = "none";
+      const params = new URLSearchParams({
+        gender: genderVal,
+        age: surveyData.age || "",
+        height: surveyData.height || "",
+        currentWeight: surveyData.currentWeight || "",
+        goalWeight: surveyData.goalWeight || "",
+        difficulty: surveyData.struggle || "",
+        bmi: surveyData.bmi || "",
+        estimatedDays: surveyData.durationDays || "",
+        source: "SurveyV1 (Email Step)",
+        email: surveyData.email
       });
+      
+      const url = `${GOOGLE_SHEETS_WEB_APP_URL}?${params.toString()}`;
+      
+      const img = new Image();
+      img.src = url;
+      
+      console.log("Optional email sent to Google Sheet", url);
+      
+      // Show success visual state
+      statusText.style.display = "block";
+      statusText.style.color = "var(--color-primary)";
+      statusText.innerHTML = "✓ Gửi thành công! Lộ trình chi tiết đang được chuyển vào hộp thư của bạn.";
+      
+      // Hide form inputs nicely
+      emailInput.style.display = "none";
+      submitBtn.style.display = "none";
     }
 
     // ==========================================
