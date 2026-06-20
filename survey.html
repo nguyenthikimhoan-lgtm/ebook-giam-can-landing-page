@@ -2043,40 +2043,41 @@
           clearInterval(loadInterval);
           
           // Submit immediately to Google Sheets in background with 'Không cung cấp' email
-          submitToGoogleSheets();
+          submitSurveyData();
         }
       }, 35);
     }
 
-    function submitToGoogleSheets() {
-      // Apps Script Web App URL from central configuration
+    function submitSurveyData() {
+      console.log("Submitting survey data...");
+      
       const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
       
       const payload = {
-        type: "survey",
-        email: surveyData.email,
-        gender: surveyData.gender,
-        age: surveyData.age,
-        height: surveyData.height,
-        currentWeight: surveyData.currentWeight,
-        goalWeight: surveyData.goalWeight,
-        struggle: surveyData.struggle,
-        bmi: surveyData.bmi,
-        bmiCategory: surveyData.bmiCategory,
-        durationDays: surveyData.durationDays
+        Timestamp: new Date().toISOString(),
+        Gender: surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender),
+        Age: surveyData.age,
+        Height: surveyData.height,
+        CurrentWeight: surveyData.currentWeight,
+        GoalWeight: surveyData.goalWeight,
+        Difficulty: surveyData.struggle,
+        BMI: surveyData.bmi,
+        EstimatedDays: surveyData.durationDays,
+        Source: "Survey BMI",
+        Email: surveyData.email || "Không cung cấp"
       };
 
-      // Execute network transaction in background. Using text/plain to circumvent CORS OPTIONS preflight block.
+      // Execute network transaction in background with mode: "no-cors" to bypass browser CORS preflight blocks
       fetch(webAppUrl, {
         method: "POST",
-        mode: "cors",
+        mode: "no-cors",
         headers: {
           "Content-Type": "text/plain;charset=utf-8"
         },
         body: JSON.stringify(payload)
       })
       .then(response => {
-        console.log("Survey results logged successfully into Google Sheets.");
+        console.log("Survey data submitted");
         
         // Fire Meta Pixel Lead Event for successful survey submit
         if (typeof fbq === 'function') {
@@ -2116,25 +2117,26 @@
       
       surveyData.email = emailVal;
       
+      console.log("Submitting optional email...");
       const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
       
       const payload = {
-        type: "survey",
-        email: surveyData.email,
-        gender: surveyData.gender,
-        age: surveyData.age,
-        height: surveyData.height,
-        currentWeight: surveyData.currentWeight,
-        goalWeight: surveyData.goalWeight,
-        struggle: surveyData.struggle,
-        bmi: surveyData.bmi,
-        bmiCategory: surveyData.bmiCategory,
-        durationDays: surveyData.durationDays
+        Timestamp: new Date().toISOString(),
+        Gender: surveyData.gender === "female" ? "Nữ" : (surveyData.gender === "male" ? "Nam" : surveyData.gender),
+        Age: surveyData.age,
+        Height: surveyData.height,
+        CurrentWeight: surveyData.currentWeight,
+        GoalWeight: surveyData.goalWeight,
+        Difficulty: surveyData.struggle,
+        BMI: surveyData.bmi,
+        EstimatedDays: surveyData.durationDays,
+        Source: "Survey BMI (Email Step)",
+        Email: surveyData.email
       };
 
       fetch(webAppUrl, {
         method: "POST",
-        mode: "cors",
+        mode: "no-cors",
         headers: {
           "Content-Type": "text/plain;charset=utf-8"
         },
