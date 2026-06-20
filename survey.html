@@ -1,0 +1,2546 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đánh Giá BMI & Dự Đoán Lộ Trình Giảm Cân | Hạnh Healthy</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Nhận ngay kết quả phân tích BMI chi tiết và lộ trình giảm cân khoa học 3 Không 4 Trụ từ Hạnh Healthy. Lộ trình cá nhân hóa dựa trên tình trạng thể chất của riêng bạn.">
+  <meta property="og:title" content="Tính BMI & Dự Đoán Lộ Trình Giảm Cân | Hạnh Healthy">
+  <meta property="og:description" content="Nhận ngay kết quả phân tích BMI chi tiết và lộ trình giảm cân khoa học 3 Không 4 Trụ từ Hạnh Healthy. Lộ trình cá nhân hóa dựa trên tình trạng thể chất của riêng bạn.">
+  <meta property="og:type" content="website">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1008081101712952');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1008081101712952&ev=PageView&noscript=1"/>
+  </noscript>
+  
+  <!-- DESIGN SYSTEM STYLE BLOCK -->
+  <style>
+    /* ==========================================
+       1. VARIABLES & DESIGN TOKENS (PREMIUM THEME)
+       ========================================== */
+    :root {
+      /* Palette: Forest Green, Sage Green, Warm Ivory, Coral Red (CTA) */
+      --color-primary: #0F5A47;         /* Deep Forest Green (Luxury Accent) */
+      --color-primary-dark: #07342E;    /* Dark Pine */
+      --color-primary-light: #1D7A65;   /* Active Emerald Forest */
+      --color-secondary: #8FA89B;       /* Sage Green */
+      --color-secondary-light: #D5E0DA; /* Soft Mint */
+      --color-secondary-dark: #587066;  /* Muted Olive */
+      --color-accent: #E11D48;          /* Coral Red (High-converting CTA) */
+      --color-accent-hover: #F43F5E;    /* Radiant Rose */
+      --color-bg-main: #FDFBF7;         /* Luxurious Warm Ivory */
+      --color-bg-soft: #F6F3EB;         /* Deep Warm Ivory */
+      --color-bg-card: #FFFFFF;         /* Pristine White */
+      --color-text-main: #1F2937;       /* Soft Charcoal Text */
+      --color-text-muted: #4B5563;      /* Muted Graphite */
+      --color-text-light: #6B7280;      /* Gentle Slate */
+      --color-border: #E5E7EB;          /* Hairline border */
+      --color-border-active: #8FA89B;   /* Sage border */
+      --color-gold: #D97706;            /* Premium Gold for accolades */
+      
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-subheading: 'Montserrat', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      --shadow-sm: 0 2px 8px rgba(15, 90, 71, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 90, 71, 0.08), 0 8px 16px -6px rgba(15, 90, 71, 0.04);
+      --shadow-lg: 0 20px 40px -10px rgba(15, 90, 71, 0.12), 0 10px 20px -8px rgba(15, 90, 71, 0.06);
+      --shadow-accent: 0 10px 20px rgba(225, 29, 72, 0.2);
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      
+      --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==========================================
+       2. RESET & GLOBAL STYLES
+       ========================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: var(--font-body);
+      background-color: var(--color-bg-main);
+      color: var(--color-text-main);
+      line-height: 1.6;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #F5F1E8 0%, var(--color-bg-main) 100%);
+      padding: 20px 10px;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg-main);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-secondary);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-secondary-dark);
+    }
+
+    /* ==========================================
+       3. LAYOUT & CONTAINER
+       ========================================== */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 15px 60px 15px;
+    }
+
+    /* Value-First Header Style */
+    .header-box {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background-color: var(--color-accent);
+      color: #FFFFFF;
+      font-family: var(--font-subheading);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      color: var(--color-primary-dark);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .header-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text-muted);
+      max-width: 580px;
+      margin: 0 auto 12px auto;
+      line-height: 1.5;
+    }
+
+    .header-brandline {
+      font-family: var(--font-subheading);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-secondary-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* ==========================================
+       4. WIZARD INTERFACE (FORM WRAPPER)
+       ========================================== */
+    .wizard-card {
+      background-color: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(143, 168, 155, 0.2);
+      padding: 35px 30px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    /* Progress Header */
+    .progress-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-family: var(--font-subheading);
+    }
+
+    .progress-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-primary);
+    }
+
+    .progress-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-secondary-dark);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background-color: var(--color-bg-soft);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 16.67%; /* 1 of 6 steps initially */
+      background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+      border-radius: 3px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Wizard Slide Controls */
+    .step-card {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: var(--transition-smooth);
+    }
+
+    .step-card.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Typography inside Form */
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      color: var(--color-primary-dark);
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-bottom: 30px;
+    }
+
+    /* ==========================================
+       5. CUSTOM INPUT FIELDS & OPTIONS CARDS
+       ========================================== */
+    /* Grid Option Select (Gender) */
+    .gender-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .option-card {
+      background: var(--color-bg-card);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .option-card:hover {
+      border-color: var(--color-secondary);
+      background-color: var(--color-bg-soft);
+      transform: translateY(-2px);
+    }
+
+    .option-card.selected {
+      border-color: var(--color-primary);
+      background-color: rgba(15, 90, 71, 0.04);
+      box-shadow: 0 4px 15px rgba(15, 90, 71, 0.08);
+    }
+
+    .option-card .icon-holder {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--color-bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      transition: var(--transition-smooth);
+    }
+
+    .option-card.selected .icon-holder {
+      background-color: var(--color-primary);
+    }
+
+    .option-card .icon-holder svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--color-primary);
+      transition: var(--transition-smooth);
+    }
+
+    .option-card.selected .icon-holder svg {
+      fill: #FFFFFF;
+    }
+
+    .option-card .card-label {
+      font-family: var(--font-subheading);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .option-card.selected .card-label {
+      color: var(--color-primary);
+    }
+
+    /* Standard Inputs (Numbers, Text, Email) */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .premium-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      background-color: var(--color-bg-soft);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      color: var(--color-text-main);
+      font-family: var(--font-body);
+      transition: var(--transition-smooth);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .premium-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(15, 90, 71, 0.08);
+    }
+
+    .premium-input::placeholder {
+      color: var(--color-text-light);
+      font-weight: 400;
+      font-size: 15px;
+    }
+
+    /* Input Unit Label */
+    .input-wrapper .input-unit {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-subheading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-secondary-dark);
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    /* List Option Select (Struggles) */
+    .struggle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .struggle-card {
+      background: var(--color-bg-card);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: var(--transition-smooth);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .struggle-card:hover {
+      border-color: var(--color-secondary);
+      background-color: var(--color-bg-soft);
+    }
+
+    .struggle-card.selected {
+      border-color: var(--color-primary);
+      background-color: rgba(15, 90, 71, 0.03);
+    }
+
+    .struggle-card .bullet-alpha {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--color-bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-subheading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-secondary-dark);
+      margin-right: 15px;
+      flex-shrink: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .struggle-card.selected .bullet-alpha {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .struggle-card .card-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text-main);
+    }
+
+    .struggle-card.selected .card-text {
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    /* Button Controls Row */
+    .button-controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+      border-top: 1px solid var(--color-border);
+      padding-top: 25px;
+    }
+
+    .btn-secondary {
+      font-family: var(--font-subheading);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 15px 25px;
+      border: 1px solid var(--color-secondary);
+      background: transparent;
+      color: var(--color-secondary-dark);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--color-bg-soft);
+      border-color: var(--color-secondary-dark);
+    }
+
+    .btn-secondary:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      font-family: var(--font-subheading);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 16px 30px;
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-grow: 1;
+      max-width: 400px;
+      margin-left: auto;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 12px rgba(15, 90, 71, 0.15);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--color-primary-light);
+      box-shadow: 0 6px 20px rgba(15, 90, 71, 0.25);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ==========================================
+       6. PREMIUM LOADING SCREEN
+       ========================================== */
+    .loading-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 10px;
+    }
+
+    .loading-spinner-wrapper {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 30px auto;
+      position: relative;
+    }
+
+    .loading-circle {
+      width: 100%;
+      height: 100%;
+      border: 4px solid var(--color-bg-soft);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+
+    .loading-percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-subheading);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+    }
+
+    .loading-status-text {
+      font-family: var(--font-subheading);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .loading-subtext {
+      font-size: 13px;
+      color: var(--color-text-light);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ==========================================
+       7. RESULTS REPORT DISPLAY
+       ========================================== */
+    .results-screen {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-heading-box {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .results-pretitle {
+      font-family: var(--font-subheading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--color-secondary-dark);
+      margin-bottom: 10px;
+    }
+
+    .results-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      line-height: 1.3;
+    }
+
+    /* Summary Grid */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .results-card {
+      background-color: #FFFFFF;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(143, 168, 155, 0.15);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* BMI Panel details */
+    .bmi-value-box {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .bmi-big-num {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+      font-family: var(--font-subheading);
+    }
+
+    .bmi-class-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      font-family: var(--font-subheading);
+    }
+
+    .bmi-badge-underweight { background-color: rgba(59, 130, 246, 0.1); color: #2563EB; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .bmi-badge-normal { background-color: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .bmi-badge-overweight { background-color: rgba(245, 158, 11, 0.1); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.2); }
+    .bmi-badge-obese { background-color: rgba(239, 68, 68, 0.1); color: #DC2626; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+    /* BMI Meter */
+    .bmi-meter-container {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .bmi-meter-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #3B82F6 0%, #10B981 35%, #F59E0B 70%, #EF4444 100%);
+      width: 100%;
+      position: relative;
+    }
+
+    .bmi-meter-indicator {
+      position: absolute;
+      top: -6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      border: 3.5px solid var(--color-primary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transform: translateX(-50%);
+      transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .bmi-meter-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: var(--color-text-light);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* Weight delta styling */
+    .weight-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--color-border);
+    }
+
+    .weight-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .weight-row-label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .weight-row-val {
+      font-family: var(--font-subheading);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .weight-loss-highlight {
+      background-color: rgba(225, 29, 72, 0.05);
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(225, 29, 72, 0.1);
+    }
+
+    .weight-loss-title {
+      font-size: 12px;
+      color: var(--color-accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .weight-loss-num {
+      font-family: var(--font-subheading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-accent);
+    }
+
+    /* Safe Timeline Roadmap Card */
+    .roadmap-card {
+      background-color: var(--color-bg-soft);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .roadmap-title {
+      font-family: var(--font-subheading);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .roadmap-main-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text-main);
+      line-height: 1.5;
+    }
+
+    .roadmap-main-text strong {
+      font-family: var(--font-subheading);
+      color: var(--color-primary-dark);
+      font-weight: 800;
+      background: linear-gradient(120deg, rgba(143, 168, 155, 0.2) 0%, rgba(143, 168, 155, 0.4) 100%);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ==========================================
+       8. WEIGHT CURVE DYNAMIC SVG CHART
+       ========================================== */
+    .chart-container-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(143, 168, 155, 0.15);
+      padding: 25px 20px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .chart-card-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      margin-bottom: 5px;
+    }
+
+    .chart-card-subtitle {
+      font-size: 13px;
+      color: var(--color-text-light);
+      margin-bottom: 20px;
+    }
+
+    .svg-wrapper {
+      position: relative;
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Styles inside SVG elements */
+    .chart-gridline {
+      stroke: #F1F5F9;
+      stroke-width: 1;
+      stroke-dasharray: 4,4;
+    }
+
+    .chart-axis-line {
+      stroke: #E2E8F0;
+      stroke-width: 1.5;
+    }
+
+    .chart-curve {
+      fill: none;
+      stroke-width: 6; /* Thicker curve for clear mobile layout */
+      stroke-linecap: round;
+    }
+
+    .chart-curve-bg {
+      fill: none;
+      stroke-width: 10;
+      stroke-opacity: 0.1;
+      stroke-linecap: round;
+    }
+
+    .chart-node-outer {
+      fill: #FFFFFF;
+      stroke-width: 3.5;
+      transition: r 0.3s;
+      cursor: pointer;
+    }
+
+    .chart-node-inner {
+      cursor: pointer;
+    }
+
+    .chart-label-bg {
+      fill: var(--color-primary-dark);
+      rx: 5;
+      ry: 5;
+    }
+
+    .chart-label-text {
+      font-family: var(--font-subheading);
+      font-size: 9px;
+      font-weight: 800;
+      fill: #FFFFFF;
+      text-anchor: middle;
+    }
+
+    .chart-axis-text {
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 600;
+      fill: var(--color-text-light);
+      text-anchor: middle;
+    }
+
+    /* Pulsing Goal Node in SVG */
+    @keyframes pulse {
+      0% { r: 6; opacity: 1; }
+      100% { r: 16; opacity: 0; }
+    }
+
+    .pulsing-ring {
+      fill: none;
+      stroke-linecap: round;
+      transform-origin: center;
+      animation: pulse 2s infinite;
+    }
+
+    /* Chart Legend Styling */
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .legend-dot.start { background-color: #EF4444; }
+    .legend-dot.goal { background-color: #10B981; }
+    .legend-dot.duration { background-color: var(--color-primary); }
+
+    /* ==========================================
+       9. PERSONALIZED RECOMMENDATIONS (CARDS)
+       ========================================== */
+    .recommendation-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(143, 168, 155, 0.15);
+      padding: 28px;
+      margin-bottom: 25px;
+    }
+
+    .recommendation-tag {
+      display: inline-block;
+      font-family: var(--font-subheading);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background-color: rgba(143, 168, 155, 0.15);
+      color: var(--color-primary);
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .recommendation-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: var(--color-primary-dark);
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .recommendation-body {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* ==========================================
+       10. MAIN CALL-TO-ACTION BLOCK (3 KHÔNG 4 TRỤ)
+       ========================================== */
+    .cta-card {
+      background-color: var(--color-primary-dark);
+      background-image: radial-gradient(circle at 10% 10%, #0F5A47 0%, var(--color-primary-dark) 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 40px 35px;
+      border: 1px solid var(--color-primary-light);
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .cta-badge {
+      display: inline-block;
+      font-family: var(--font-subheading);
+      font-size: 10px;
+      font-weight: 700;
+      background-color: var(--color-accent);
+      color: #FFFFFF;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cta-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      color: #FFFFFF;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .cta-subtitle {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-secondary-light);
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    /* Columns for 3 Không and 4 Trụ */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .pillar-col-title {
+      font-family: var(--font-subheading);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
+
+    .pillar-col-title.accent-line {
+      color: var(--color-accent);
+      border-color: rgba(225, 29, 72, 0.25);
+    }
+
+    .pillar-col-title.gold-line {
+      color: #FBBF24;
+      border-color: rgba(251, 191, 36, 0.25);
+    }
+
+    .pillar-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pillar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pillar-icon-box {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pillar-icon-box.red-bg {
+      background-color: rgba(225, 29, 72, 0.15);
+    }
+    .pillar-icon-box.red-bg svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--color-accent);
+    }
+
+    .pillar-icon-box.gold-bg {
+      background-color: rgba(251, 191, 36, 0.15);
+    }
+    .pillar-icon-box.gold-bg svg {
+      width: 14px;
+      height: 14px;
+      fill: #FBBF24;
+    }
+
+    .pillar-text-bold {
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .pillar-text-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Massive CTA Button */
+    .cta-submit-btn {
+      font-family: var(--font-subheading);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      width: 100%;
+      padding: 18px 20px;
+      background-color: var(--color-accent);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition-smooth);
+      box-shadow: var(--shadow-accent);
+    }
+
+    .cta-submit-btn:hover {
+      background-color: var(--color-accent-hover);
+      box-shadow: 0 12px 28px rgba(225, 29, 72, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .cta-submit-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #FFFFFF;
+      transition: transform 0.3s;
+    }
+
+    .cta-submit-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================
+       11. RESPONSIVE DESIGN (MOBILE ADAPTATION)
+       ========================================== */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px 5px;
+      }
+
+      .container {
+        padding: 10px 5px 40px 5px;
+      }
+
+      .header-title {
+        font-size: 22px;
+      }
+
+      .header-desc {
+        font-size: 13px;
+      }
+
+      .wizard-card {
+        padding: 25px 18px;
+        border-radius: var(--radius-md);
+      }
+
+      .step-title {
+        font-size: 20px;
+      }
+
+      .step-desc {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+
+      .gender-grid {
+        gap: 15px;
+      }
+
+      .option-card {
+        padding: 20px 10px;
+      }
+
+      .option-card .icon-holder {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+      }
+
+      .option-card .icon-holder svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .option-card .card-label {
+        font-size: 13px;
+      }
+
+      .premium-input {
+        padding: 14px 16px;
+        font-size: 16px;
+      }
+
+      .struggle-card {
+        padding: 14px 16px;
+      }
+
+      .struggle-card .bullet-alpha {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+        margin-right: 12px;
+      }
+
+      .struggle-card .card-text {
+        font-size: 13.5px;
+      }
+
+      .btn-secondary {
+        padding: 14px 18px;
+        font-size: 12px;
+      }
+
+      .btn-primary {
+        padding: 14px 22px;
+        font-size: 12px;
+      }
+
+      /* Results */
+      .results-title {
+        font-size: 22px;
+      }
+
+      .results-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .results-card {
+        padding: 18px;
+      }
+
+      .bmi-big-num {
+        font-size: 34px;
+      }
+
+      .recommendation-card {
+        padding: 20px;
+      }
+
+      .recommendation-title {
+        font-size: 18px;
+      }
+
+      .cta-card {
+        padding: 30px 20px;
+        border-radius: var(--radius-md);
+      }
+
+      .cta-title {
+        font-size: 20px;
+      }
+
+      .pillars-grid {
+        gap: 20px;
+      }
+
+      .chart-legend {
+        gap: 10px;
+      }
+
+      .legend-item {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- BRAND-SMALL VALUE-FIRST HEADER -->
+    <header class="header-box">
+      <div class="header-badge">MIỄN PHÍ</div>
+      <h1 class="header-title">Tính BMI & Dự Đoán Lộ Trình Giảm Cân Của Bạn</h1>
+      <p class="header-desc">Trả lời 6 câu hỏi ngắn để biết chỉ số BMI hiện tại, cân nặng mục tiêu và khoảng thời gian dự kiến để đạt vóc dáng mong muốn một cách an toàn.</p>
+      <div class="header-brandline">Công cụ từ Hạnh Healthy</div>
+    </header>
+    
+    <!-- MAIN CALCULATOR CARD -->
+    <main class="wizard-card">
+      
+      <!-- SURVEY FORM WIZARD -->
+      <form id="survey-form" onsubmit="event.preventDefault();">
+        
+        <!-- Progress Indicator -->
+        <div class="progress-wrapper">
+          <span class="progress-title" id="progress-title-text">CÂU HỎI 1/6</span>
+          <span class="progress-text" id="progress-pct-text">17% HOÀN TẤT</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-bar-indicator"></div>
+        </div>
+        
+        <div style="margin-top: 25px;">
+          
+          <!-- STEP 1: GENDER -->
+          <div class="step-card active" data-step="1">
+            <h1 class="step-title">Bạn thuộc giới tính nào?</h1>
+            <p class="step-desc">Thông tin này giúp hệ thống xác định tỷ lệ mỡ và nhu cầu calo tối ưu cho cơ thể bạn.</p>
+            
+            <div class="gender-grid">
+              <button type="button" class="option-card" data-gender="Nữ" onclick="selectGender('Nữ')">
+                <div class="icon-holder">
+                  <!-- Female SVG icon -->
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12,2A5.5,5.5 0 0,0 6.5,7.5C6.5,10.24 8.31,12.56 10.83,12.93V15H9V17H10.83V19.83H9V21.83H10.83V23H12.83V21.83H14.66V19.83H12.83V17H14.66V15H12.83V12.93C15.35,12.56 17.16,10.24 17.16,7.5A5.5,5.5 0 0,0 12,2M12,4A3.5,3.5 0 0,1 15.5,7.5A3.5,3.5 0 0,1 12,11A3.5,3.5 0 0,1 8.5,7.5A3.5,3.5 0 0,1 12,4Z" />
+                  </svg>
+                </div>
+                <span class="card-label">Nữ</span>
+              </button>
+              
+              <button type="button" class="option-card" data-gender="Nam" onclick="selectGender('Nam')">
+                <div class="icon-holder">
+                  <!-- Male SVG icon -->
+                  <svg viewBox="0 0 24 24">
+                    <path d="M9,20A5,5 0 0,0 14,15A5,5 0 0,0 9,10A5,5 0 0,0 4,15A5,5 0 0,0 9,20M9,12A3,3 0 0,1 12,15A3,3 0 0,1 9,18A3,3 0 0,1 6,15A3,3 0 0,1 9,12M21,2H16V4H18.59L14.31,8.28C13.05,7.47 11.58,7 10,7A8,8 0 0,0 2,15A8,8 0 0,0 10,23A8,8 0 0,0 18,15C18,13.42 17.53,11.95 16.72,10.69L21,5.41V8H23V2H21Z" />
+                  </svg>
+                </div>
+                <span class="card-label">Nam</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- STEP 2: AGE -->
+          <div class="step-card" data-step="2">
+            <h1 class="step-title">Bạn bao nhiêu tuổi?</h1>
+            <p class="step-desc">Tuổi tác ảnh hưởng đến tốc độ trao đổi chất tự nhiên. Hãy cho biết tuổi của bạn để tính toán lộ trình chính xác nhất.</p>
+            
+            <div class="input-wrapper">
+              <input type="number" id="input-age" class="premium-input" placeholder="Nhập số tuổi của bạn..." min="15" max="100" oninput="validateStep(2)">
+              <span class="input-unit">tuổi</span>
+            </div>
+          </div>
+          
+          <!-- STEP 3: HEIGHT -->
+          <div class="step-card" data-step="3">
+            <h1 class="step-title">Chiều cao hiện tại của bạn?</h1>
+            <p class="step-desc">Chiều cao được sử dụng để xác định tỷ lệ cơ thể và chỉ số khối sinh học BMI chuẩn xác.</p>
+            
+            <div class="input-wrapper">
+              <input type="number" id="input-height" class="premium-input" placeholder="Nhập chiều cao (cm)..." min="100" max="220" oninput="validateStep(3)">
+              <span class="input-unit">cm</span>
+            </div>
+          </div>
+          
+          <!-- STEP 4: CURRENT WEIGHT -->
+          <div class="step-card" data-step="4">
+            <h1 class="step-title">Cân nặng hiện tại là bao nhiêu?</h1>
+            <p class="step-desc">Để có kết quả phân tích chính xác, hãy điền cân nặng hiện tại của bạn (đo vào buổi sáng lúc bụng đói là tốt nhất).</p>
+            
+            <div class="input-wrapper">
+              <input type="number" id="input-weight" class="premium-input" placeholder="Nhập cân nặng (kg)..." min="30" max="200" oninput="validateStep(4)">
+              <span class="input-unit">kg</span>
+            </div>
+          </div>
+          
+          <!-- STEP 5: GOAL WEIGHT -->
+          <div class="step-card" data-step="5">
+            <h1 class="step-title">Cân nặng mong muốn của bạn?</h1>
+            <p class="step-desc">Mục tiêu của bạn là bao nhiêu? Chúng tôi sẽ tính toán số cân nặng an toàn cần giảm để đạt được mốc này.</p>
+            
+            <div class="input-wrapper">
+              <input type="number" id="input-goal" class="premium-input" placeholder="Nhập mục tiêu mong muốn (kg)..." min="30" max="200" oninput="validateStep(5)">
+              <span class="input-unit">kg</span>
+            </div>
+          </div>
+          
+          <!-- STEP 6: STRUGGLE -->
+          <div class="step-card" data-step="6">
+            <h1 class="step-title">Khó khăn lớn nhất khi giảm cân?</h1>
+            <p class="step-desc">Hãy chọn rào cản bạn thường gặp để hệ thống đưa ra giải pháp khắc phục cá nhân hóa dành riêng cho bạn.</p>
+            
+            <div class="struggle-list">
+              <div class="struggle-card" data-struggle="Hay bỏ cuộc giữa chừng" onclick="selectStruggle('Hay bỏ cuộc giữa chừng')">
+                <span class="bullet-alpha">A</span>
+                <span class="card-text">Hay bỏ cuộc giữa chừng</span>
+              </div>
+              <div class="struggle-card" data-struggle="Không có thời gian" onclick="selectStruggle('Không có thời gian')">
+                <span class="bullet-alpha">B</span>
+                <span class="card-text">Không có thời gian dọn dẹp / tập luyện</span>
+              </div>
+              <div class="struggle-card" data-struggle="Hay thèm ăn" onclick="selectStruggle('Hay thèm ăn')">
+                <span class="bullet-alpha">C</span>
+                <span class="card-text">Hay thèm ăn vặt, thèm đồ ngọt</span>
+              </div>
+              <div class="struggle-card" data-struggle="Không biết ăn gì" onclick="selectStruggle('Không biết ăn gì')">
+                <span class="bullet-alpha">D</span>
+                <span class="card-text">Hoang mang, không biết ăn uống thế nào</span>
+              </div>
+              <div class="struggle-card" data-struggle="Chững cân" onclick="selectStruggle('Chững cân')">
+                <span class="bullet-alpha">E</span>
+                <span class="card-text">Đã giảm nhiều cách nhưng bị chững cân</span>
+              </div>
+              <div class="struggle-card" data-struggle="Khác" onclick="selectStruggle('Khác')">
+                <span class="bullet-alpha">F</span>
+                <span class="card-text">Lý do khó khăn khác</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- STEP CONTROLS FOOTER -->
+        <div class="button-controls">
+          <button type="button" id="btn-back" class="btn-secondary" onclick="moveBack()" disabled>
+            <svg style="width: 14px; height: 14px; fill: currentColor; transform: rotate(180deg);" viewBox="0 0 24 24">
+              <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+            </svg>
+            Quay lại
+          </button>
+          
+          <button type="button" id="btn-next" class="btn-primary" onclick="moveNext()" disabled>
+            <span>Tiếp theo</span>
+            <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24">
+              <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+            </svg>
+          </button>
+        </div>
+        
+      </form>
+      
+      <!-- PREMIUM COMPUTATIONAL LOADING SCREEN -->
+      <div id="loading-container" class="loading-screen">
+        <div class="loading-spinner-wrapper">
+          <div class="loading-circle"></div>
+          <span class="loading-percentage" id="loading-percentage-text">0%</span>
+        </div>
+        <div class="loading-status-text" id="loading-status-text">Đang nhận diện thể chất...</div>
+        <p class="loading-subtext">Hệ thống AI Coach đang mô phỏng đường cong giảm mỡ tối ưu.</p>
+      </div>
+      
+      <!-- RESULTS REPORT SCREEN -->
+      <div id="results-container" class="results-screen">
+        
+        <div class="results-heading-box">
+          <div class="results-pretitle">Báo Cáo Sức Khỏe Cá Nhân</div>
+          <h2 class="results-title">Đánh Giá BMI & Lộ Trình Của Bạn</h2>
+        </div>
+        
+        <!-- Indicators Cards Grid -->
+        <div class="results-grid">
+          
+          <!-- BMI CARD -->
+          <div class="results-card">
+            <span class="weight-row-label">Chỉ số BMI của bạn</span>
+            <div class="bmi-value-box">
+              <span class="bmi-big-num" id="res-bmi-value">24.2</span>
+              <span class="bmi-class-badge" id="res-bmi-badge">Thừa cân</span>
+            </div>
+            
+            <!-- BMI Visual Scale -->
+            <div class="bmi-meter-container">
+              <div class="bmi-meter-bar">
+                <div class="bmi-meter-indicator" id="res-bmi-indicator" style="left: 65%;"></div>
+              </div>
+              <div class="bmi-meter-labels">
+                <span>Thiếu (<18.5)</span>
+                <span>Chuẩn (18.5-22.9)</span>
+                <span>Thừa (23-24.9)</span>
+                <span>Béo (>=25)</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- WEIGHT GOAL CARD -->
+          <div class="results-card">
+            <div class="weight-row">
+              <span class="weight-row-label">Cân nặng hiện tại:</span>
+              <span class="weight-row-val" id="res-weight-current">68 kg</span>
+            </div>
+            <div class="weight-row">
+              <span class="weight-row-label">Cân nặng mục tiêu:</span>
+              <span class="weight-row-val" id="res-weight-goal">55 kg</span>
+            </div>
+            
+            <div class="weight-loss-highlight">
+              <span class="weight-loss-title">Cần giảm bớt:</span>
+              <span class="weight-loss-num" id="res-weight-diff">13 kg</span>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- NEW: ROADMAP SUMMARY CARD (CRO OPTIMIZATION) -->
+        <div class="results-card" style="margin-bottom: 25px;">
+          <h3 style="font-family: var(--font-heading); font-size: 19px; color: var(--color-primary-dark); font-weight: 600; margin-bottom: 12px; border-bottom: 1.5px solid rgba(143, 168, 155, 0.15); padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+            <svg style="width: 20px; height: 20px; fill: var(--color-primary);" viewBox="0 0 24 24">
+              <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 19.8H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M9 17H7V10H9V17M13 17H11V7H13V17M17 17H15V13H17V17Z" />
+            </svg>
+            Tóm Tắt Lộ Trình Của Bạn
+          </h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div style="background-color: var(--color-bg-soft); padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid rgba(143, 168, 155, 0.1);">
+              <span style="font-size: 11.5px; color: var(--color-text-muted); display: block; margin-bottom: 2px;">Cân nặng hiện tại</span>
+              <strong style="font-family: var(--font-subheading); font-size: 15px; color: var(--color-text-main);" id="sum-weight-current">-- kg</strong>
+            </div>
+            <div style="background-color: var(--color-bg-soft); padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid rgba(143, 168, 155, 0.1);">
+              <span style="font-size: 11.5px; color: var(--color-text-muted); display: block; margin-bottom: 2px;">Cân nặng mục tiêu</span>
+              <strong style="font-family: var(--font-subheading); font-size: 15px; color: var(--color-primary);" id="sum-weight-goal">-- kg</strong>
+            </div>
+          </div>
+          
+          <div style="background-color: rgba(225, 29, 72, 0.04); border: 1px solid rgba(225, 29, 72, 0.1); padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12.5px; color: var(--color-accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Tổng số cân nặng cần giảm:</span>
+            <strong style="font-family: var(--font-subheading); font-size: 16px; color: var(--color-accent);" id="sum-weight-diff">-- kg</strong>
+          </div>
+          
+          <h4 style="font-family: var(--font-subheading); font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-secondary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24">
+              <path d="M16 12H18V18H16V12M12 10H14V18H12V10M8 14H10V18H8V14M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4M20 18H4V6H20V18Z" />
+            </svg>
+            Dự Kiến Các Cột Mốc Cân Nặng Quan Trọng
+          </h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background-color: var(--color-bg-soft); border-left: 3.5px solid var(--color-accent); border-radius: 4px;">
+              <span style="font-size: 13px; font-weight: 500; color: var(--color-text-main);">Sau 30 ngày (Giai đoạn Kích hoạt):</span>
+              <strong style="font-family: var(--font-subheading); font-size: 13.5px; color: var(--color-text-main);" id="sum-milestone-30">-- kg</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background-color: var(--color-bg-soft); border-left: 3.5px solid #F97316; border-radius: 4px;">
+              <span style="font-size: 13px; font-weight: 500; color: var(--color-text-main);">Sau 60 ngày (Giai đoạn Đốt mỡ):</span>
+              <strong style="font-family: var(--font-subheading); font-size: 13.5px; color: var(--color-text-main);" id="sum-milestone-60">-- kg</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background-color: var(--color-bg-soft); border-left: 3.5px solid #10B981; border-radius: 4px;">
+              <span style="font-size: 13px; font-weight: 500; color: var(--color-text-main);">Sau 90 ngày (Giai đoạn Duy trì):</span>
+              <strong style="font-family: var(--font-subheading); font-size: 13.5px; color: #10B981;" id="sum-milestone-90">-- kg</strong>
+            </div>
+          </div>
+        </div>
+        
+        <!-- NEW: PSYCHOLOGICAL CARD (CRO OPTIMIZATION) -->
+        <div class="roadmap-card" style="background-color: rgba(143, 168, 155, 0.08); border-left: 4px solid var(--color-secondary); margin-bottom: 25px;">
+          <div class="roadmap-title" style="color: var(--color-primary); font-size: 12.5px; margin-bottom: 8px;">
+            <svg style="width: 16px; height: 16px; fill: currentColor; margin-right: 4px;" viewBox="0 0 24 24">
+              <path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.6 20 4 16.4 4 12S7.6 4 12 4 20 7.6 20 12 16.4 20 12 20M13 7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+            </svg>
+            TIN VUI DÀNH RIÊNG CHO BẠN
+          </div>
+          <p class="roadmap-main-text" style="font-size: 13.5px; line-height: 1.6; color: var(--color-text-main);" id="psychological-text">
+            Tin tốt là mục tiêu giảm <strong><span id="psych-weight-diff">13</span> kg</strong> của bạn <strong>hoàn toàn khả thi</strong>. Khi áp dụng đúng quy luật chuyển hóa tự nhiên của cơ thể, bạn có thể loại bỏ mỡ thừa tích tụ mà không cần phải nhịn ăn khổ sở hay vắt kiệt sức lực trong phòng tập.
+          </p>
+          <p class="roadmap-main-text" style="font-size: 13.5px; line-height: 1.6; color: var(--color-text-main); margin-top: 10px;">
+            Hệ thống của Hạnh Healthy được thiết kế để từng bước điều chỉnh lại hormone báo no/đói, kích hoạt trạng thái đốt mỡ tự thân bền vững, giúp bạn đạt vóc dáng mong muốn một cách nhẹ nhàng nhất.
+          </p>
+        </div>
+        
+        <!-- SAFE ROADMAP PREDICTION -->
+        <div class="roadmap-card">
+          <div class="roadmap-title">
+            <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+              <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
+            </svg>
+            Dự báo thời gian đạt mục tiêu an toàn
+          </div>
+          <p class="roadmap-main-text" id="res-roadmap-text">
+            Bạn có thể đạt mục tiêu trong khoảng <strong id="res-days-range">90 - 120 ngày</strong>.
+          </p>
+        </div>
+        
+        <!-- OPTIONAL EMAIL COLLECTION CARD -->
+        <div class="results-card" style="margin-bottom: 25px;" id="opt-email-card">
+          <h3 style="font-family: var(--font-heading); font-size: 18px; color: var(--color-primary-dark); font-weight: 600; margin-bottom: 6px;">Muốn lưu lại lộ trình này?</h3>
+          <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 18px; line-height: 1.4;">Nhập email để lưu lại kết quả phân tích BMI, biểu đồ dự báo hành trình và nhận cẩm nang hướng dẫn 3 Không 4 Trụ từ Hạnh Healthy (Hoàn toàn miễn phí).</p>
+          
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <div style="position: relative; flex-grow: 1; min-width: 240px;">
+              <input type="email" id="opt-email-input" class="premium-input" placeholder="Nhập địa chỉ email của bạn..." style="margin-bottom: 0; padding: 12px 16px; font-size: 14px;">
+            </div>
+            <button type="button" class="btn-primary" id="btn-opt-email-submit" onclick="submitOptionalEmail()" style="margin-left: 0; flex-grow: 0; padding: 12px 24px; font-size: 13px; max-width: none; width: auto;">GỬI CHO TÔI</button>
+          </div>
+          <p id="opt-email-status" style="font-size: 12.5px; margin-top: 10px; display: none; font-weight: 600;"></p>
+        </div>
+        
+        <!-- DYNAMIC SVG WEIGHT LOSS CURVE CHART -->
+        <div class="chart-container-card">
+          <h3 class="chart-card-title">Dự đoán hành trình giảm cân của bạn</h3>
+          <p class="chart-card-subtitle">Mức độ tiến bộ ước tính dựa trên tốc độ giảm mỡ bền vững</p>
+          
+          <div class="svg-wrapper">
+            <!-- Inline Responsive SVG -->
+            <svg id="weight-chart" viewBox="0 0 500 250" width="100%" height="100%">
+              <!-- Definitions for color gradients -->
+              <defs>
+                <linearGradient id="curve-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#EF4444" />   <!-- Red at start -->
+                  <stop offset="35%" stop-color="#F97316" />  <!-- Orange -->
+                  <stop offset="70%" stop-color="#EAB308" />  <!-- Yellow -->
+                  <stop offset="100%" stop-color="#10B981" /> <!-- Green at goal -->
+                </linearGradient>
+                <linearGradient id="area-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.15" />
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0.00" />
+                </linearGradient>
+                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0F5A47" flood-opacity="0.15" />
+                </filter>
+              </defs>
+              
+              <!-- Horizontal Grid Lines -->
+              <line class="chart-gridline" x1="40" y1="40" x2="460" y2="40" />
+              <line class="chart-gridline" x1="40" y1="82.5" x2="460" y2="82.5" />
+              <line class="chart-gridline" x1="40" y1="125" x2="460" y2="125" />
+              <line class="chart-gridline" x1="40" y1="167.5" x2="460" y2="167.5" />
+              <line class="chart-gridline" x1="40" y1="210" x2="460" y2="210" />
+              
+              <!-- Vertical Grid Lines for periods -->
+              <line class="chart-gridline" x1="40" y1="40" x2="40" y2="210" />
+              <line class="chart-gridline" x1="145" y1="40" x2="145" y2="210" />
+              <line class="chart-gridline" x1="250" y1="40" x2="250" y2="210" />
+              <line class="chart-gridline" x1="355" y1="40" x2="355" y2="210" />
+              <line class="chart-gridline" x1="460" y1="40" x2="460" y2="210" />
+              
+              <!-- Bottom Axis Line -->
+              <line class="chart-axis-line" x1="40" y1="210" x2="460" y2="210" />
+              
+              <!-- THE DYNAMIC CURVES WILL BE INJECTED BY JS -->
+              <!-- Fill Gradient Area Under Curve -->
+              <path id="chart-area-path" fill="url(#area-gradient)" d="" />
+              
+              <!-- Stroke Gradient Curve -->
+              <path class="chart-curve-bg" id="chart-curve-bg" stroke="url(#curve-gradient)" d="" />
+              <path class="chart-curve" id="chart-curve" stroke="url(#curve-gradient)" d="" />
+              
+              <!-- Time Labels -->
+              <text class="chart-axis-text" x="40" y="226">Hôm nay</text>
+              <text class="chart-axis-text" x="145" y="226">30 ngày</text>
+              <text class="chart-axis-text" x="250" y="226">60 ngày</text>
+              <text class="chart-axis-text" x="355" y="226">90 ngày</text>
+              <text class="chart-axis-text" x="460" y="226" id="chart-axis-goal-label">Mục tiêu</text>
+              
+              <!-- Dynamic Nodes & Badges will be generated here -->
+              <g id="chart-nodes-group"></g>
+              <g id="chart-badges-group"></g>
+            </svg>
+          </div>
+
+          <!-- Bold, Benefit-First Legends -->
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-dot start"></span> Hôm nay: <strong id="chart-legend-start">68 kg</strong>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot goal"></span> Mục tiêu: <strong id="chart-legend-goal">55 kg</strong>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot duration"></span> Dự kiến: <strong id="chart-legend-days">90 - 120 ngày</strong>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PERSONALIZED EXPERT RECOMMENDATIONS -->
+        <div id="recommendation-box">
+          <!-- Dynamic health advice injected by JS -->
+        </div>
+        
+        <!-- CALL-TO-ACTION (CTA) BRAND BOX -->
+        <div class="cta-card">
+          <span class="cta-badge">GIẢI PHÁP ĐỘC QUYỀN</span>
+          <h3 class="cta-title">Bạn không cần một chế độ giảm cân khắc nghiệt. Bạn cần một hệ thống đủ dễ để duy trì.</h3>
+          <p class="cta-subtitle">Hệ Thống Giảm Cân Không Bỏ Cuộc™ giúp bạn đi theo lộ trình 3 Không 4 Trụ: không nhịn ăn cực đoan, không gym nặng, không thuốc giảm cân — tập trung vào ăn đúng, vận động đúng, nghỉ ngơi đúng và duy trì đúng.</p>
+          
+          <div class="pillars-grid">
+            <!-- 3 KHÔNG -->
+            <div>
+              <div class="pillar-col-title accent-line">Triết lý 3 KHÔNG</div>
+              <div class="pillar-items">
+                <div class="pillar-item">
+                  <div class="pillar-icon-box red-bg">
+                    <!-- Red Close icon -->
+                    <svg viewBox="0 0 24 24">
+                      <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Không nhịn ăn cực đoan:</span>
+                    <span class="pillar-text-desc">Không bỏ bữa, không phá hủy hệ tiêu hóa và trao đổi chất.</span>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <div class="pillar-icon-box red-bg">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Không gym quá nặng:</span>
+                    <span class="pillar-text-desc">Tập trung vận động nhẹ nhàng, kích hoạt đốt mỡ thay vì vắt kiệt thể lực.</span>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <div class="pillar-icon-box red-bg">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Không thuốc giảm cân:</span>
+                    <span class="pillar-text-desc">Tuyệt đối không dùng chất kích thích ảo, gây mất nước, ép tim độc hại.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 4 TRỤ -->
+            <div>
+              <div class="pillar-col-title gold-line">Triết lý 4 TRỤ CỘT</div>
+              <div class="pillar-items">
+                <div class="pillar-item">
+                  <div class="pillar-icon-box gold-bg">
+                    <!-- Gold Check icon -->
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.08L19.59,5.58L21,7Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Ăn đúng:</span>
+                    <span class="pillar-text-desc">Ăn no thỏa thê với thực phẩm giàu xơ, đạm, cân bằng đa lượng Việt Nam.</span>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <div class="pillar-icon-box gold-bg">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.08L19.59,5.58L21,7Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Vận động đúng:</span>
+                    <span class="pillar-text-desc">15-20 phút rèn luyện thói quen tự nhiên tại nhà, tạo hứng khởi dễ duy trì.</span>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <div class="pillar-icon-box gold-bg">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.08L19.59,5.58L21,7Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Nghỉ ngơi đúng:</span>
+                    <span class="pillar-text-desc">Giấc ngủ sâu kích hoạt hormone leptin phát tín hiệu no lâu, thúc đẩy chuyển hóa.</span>
+                  </div>
+                </div>
+                <div class="pillar-item">
+                  <div class="pillar-icon-box gold-bg">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.08L19.59,5.58L21,7Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="pillar-text-bold">Duy trì đúng:</span>
+                    <span class="pillar-text-desc">Một lộ trình đủ đơn giản, vui vẻ để không bao giờ bỏ cuộc giữa chừng.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- CTA BUTTON LINK TO MAIN PAGE -->
+          <button type="button" class="cta-submit-btn" onclick="redirectToLandingPage()">
+            <span id="cta-dynamic-text">XEM LỘ TRÌNH CHI TIẾT</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+            </svg>
+          </button>
+        </div>
+        
+      </div>
+      
+    </main>
+    
+  </div>
+
+  <!-- SURVEY LOGIC SCRIPT BLOCK -->
+  <script>
+    // ==========================================
+    // 1. DATA STATE MANAGEMENT
+    // ==========================================
+    let currentStep = 1;
+    const totalSteps = 6; // Quiz only has 6 steps now (no email barrier)
+    
+    // User profile survey data
+    const surveyData = {
+      gender: '',
+      age: null,
+      height: null,
+      currentWeight: null,
+      goalWeight: null,
+      struggle: '',
+      email: 'Không cung cấp', // Default if they don't enter later
+      bmi: null,
+      bmiCategory: '',
+      durationDays: ''
+    };
+
+    // ==========================================
+    // 2. AUTO-SCROLL UX OPTIMIZATION FOR MOBILE
+    // ==========================================
+    const scrollActiveFieldIntoView = (element) => {
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 300);
+    };
+
+    // Attach listeners to input focus
+    const inputs = document.querySelectorAll('.premium-input');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        scrollActiveFieldIntoView(this);
+      });
+      // Handle enter key to advance
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (validateStep(currentStep)) {
+            moveNext();
+          }
+        }
+      });
+    });
+
+    // ==========================================
+    // 3. SELECTION EVENT HANDLERS
+    // ==========================================
+    function selectGender(val) {
+      surveyData.gender = val;
+      
+      // Update UI selection classes
+      document.querySelectorAll('[data-gender]').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      document.querySelector(`[data-gender="${val}"]`).classList.add('selected');
+      
+      // Auto-advance step for maximum fluid UX
+      setTimeout(() => {
+        validateStep(1);
+        moveNext();
+      }, 350);
+    }
+
+    function selectStruggle(val) {
+      surveyData.struggle = val;
+      
+      // Update UI selection classes
+      document.querySelectorAll('[data-struggle]').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.querySelector(`[data-struggle="${val}"]`).classList.add('selected');
+      
+      // Select the struggle, update step validation, and let them click the big final button
+      validateStep(6);
+    }
+
+    // ==========================================
+    // 4. STEP VALIDATION ENGINE
+    // ==========================================
+    function validateStep(step) {
+      const nextBtn = document.getElementById('btn-next');
+      let isValid = false;
+      
+      switch(step) {
+        case 1:
+          isValid = !!surveyData.gender;
+          break;
+        case 2:
+          const age = parseInt(document.getElementById('input-age').value);
+          surveyData.age = age;
+          isValid = !isNaN(age) && age >= 15 && age <= 100;
+          break;
+        case 3:
+          const height = parseInt(document.getElementById('input-height').value);
+          surveyData.height = height;
+          isValid = !isNaN(height) && height >= 100 && height <= 220;
+          break;
+        case 4:
+          const weight = parseFloat(document.getElementById('input-weight').value);
+          surveyData.currentWeight = weight;
+          isValid = !isNaN(weight) && weight >= 30 && weight <= 200;
+          break;
+        case 5:
+          const goal = parseFloat(document.getElementById('input-goal').value);
+          surveyData.goalWeight = goal;
+          isValid = !isNaN(goal) && goal >= 30 && goal <= 200;
+          break;
+        case 6:
+          isValid = !!surveyData.struggle;
+          break;
+      }
+      
+      nextBtn.disabled = !isValid;
+      return isValid;
+    }
+
+    // ==========================================
+    // 5. WIZARD STEP NAVIGATION STATE MACHINE
+    // ==========================================
+    function moveNext() {
+      if (currentStep < totalSteps) {
+        // Change slide visuals
+        const currentSlide = document.querySelector(`.step-card[data-step="${currentStep}"]`);
+        currentSlide.classList.remove('active');
+        
+        currentStep++;
+        
+        const nextSlide = document.querySelector(`.step-card[data-step="${currentStep}"]`);
+        nextSlide.classList.add('active');
+        
+        // Update Indicator Texts
+        document.getElementById('progress-title-text').innerText = `CÂU HỎI ${currentStep}/6`;
+        const pct = Math.round((currentStep / totalSteps) * 100);
+        document.getElementById('progress-pct-text').innerText = `${pct}% HOÀN TẤT`;
+        document.getElementById('progress-bar-indicator').style.width = `${pct}%`;
+        
+        // Update bottom back button
+        document.getElementById('btn-back').disabled = false;
+        
+        // If it's the last step (Struggle), rename next button to submit
+        if (currentStep === totalSteps) {
+          document.getElementById('btn-next').querySelector('span').innerText = 'XEM KẾT QUẢ CỦA TÔI';
+        }
+        
+        // Re-validate the newly entered step
+        validateStep(currentStep);
+        
+        // Auto focus input inside new step to keep mobile keyboard open seamlessly
+        const autoFocusInput = nextSlide.querySelector('input');
+        if (autoFocusInput) {
+          autoFocusInput.focus();
+        }
+      } else {
+        // Form submitted successfully! Execute computational analysis & sheet upload.
+        runSurveySubmission();
+      }
+    }
+
+    function moveBack() {
+      if (currentStep > 1) {
+        // Change slide visuals
+        const currentSlide = document.querySelector(`.step-card[data-step="${currentStep}"]`);
+        currentSlide.classList.remove('active');
+        
+        currentStep--;
+        
+        const prevSlide = document.querySelector(`.step-card[data-step="${currentStep}"]`);
+        prevSlide.classList.add('active');
+        
+        // Update Indicator Texts
+        document.getElementById('progress-title-text').innerText = `CÂU HỎI ${currentStep}/6`;
+        const pct = Math.round((currentStep / totalSteps) * 100);
+        document.getElementById('progress-pct-text').innerText = `${pct}% HOÀN TẤT`;
+        document.getElementById('progress-bar-indicator').style.width = `${pct}%`;
+        
+        // Reset button name if it was on struggle step
+        document.getElementById('btn-next').querySelector('span').innerText = 'Tiếp theo';
+        
+        // Disable back if we returned to first step
+        if (currentStep === 1) {
+          document.getElementById('btn-back').disabled = true;
+        }
+        
+        // Re-validate the previous step state
+        validateStep(currentStep);
+      }
+    }
+
+    // ==========================================
+    // 6. HEALTH COMPUTATION ENGINE
+    // ==========================================
+    function performCalculations() {
+      // 1. Calculate BMI
+      const heightInMeters = surveyData.height / 100;
+      const bmi = surveyData.currentWeight / (heightInMeters * heightInMeters);
+      surveyData.bmi = Math.round(bmi * 10) / 10;
+      
+      // 2. BMI Classification (Standard Asian-Vietnamese Criteria)
+      if (surveyData.bmi < 18.5) {
+        surveyData.bmiCategory = 'Thiếu cân';
+      } else if (surveyData.bmi < 23.0) {
+        surveyData.bmiCategory = 'Bình thường';
+      } else if (surveyData.bmi < 25.0) {
+        surveyData.bmiCategory = 'Thừa cân';
+      } else {
+        surveyData.bmiCategory = 'Béo phì';
+      }
+      
+      // 3. Time Roadmap Predictor (Safe weight loss: 0.5kg - 0.8kg per week)
+      const diffKg = surveyData.currentWeight - surveyData.goalWeight;
+      if (diffKg > 0) {
+        const minWeeks = diffKg / 0.8;
+        const maxWeeks = diffKg / 0.5;
+        const minDays = Math.round(minWeeks * 7);
+        const maxDays = Math.round(maxWeeks * 7);
+        surveyData.durationDays = `${minDays} - ${maxDays}`;
+      } else {
+        surveyData.durationDays = "30";
+      }
+    }
+
+    // ==========================================
+    // 7. GOOGLE SHEET BACKEND PERSISTENCE
+    // ==========================================
+    function runSurveySubmission() {
+      // Calculate health variables
+      performCalculations();
+      
+      // Hide form steps and headers
+      document.getElementById('survey-form').style.display = 'none';
+      document.querySelector('.progress-wrapper').style.display = 'none';
+      document.querySelector('.progress-bar-bg').style.display = 'none';
+      
+      // Show Computational Loading Screen
+      const loader = document.getElementById('loading-container');
+      loader.style.display = 'block';
+      
+      // Animate Loading sequence for premium wellness application vibe
+      const percentageText = document.getElementById('loading-percentage-text');
+      const statusText = document.getElementById('loading-status-text');
+      let pctValue = 0;
+      
+      const loadingPhrases = [
+        { limit: 25, text: "Đang tính toán chỉ số BMI..." },
+        { limit: 55, text: "Đang phân tích tế bào mỡ & hệ số cơ..." },
+        { limit: 75, text: "Đang mô phỏng lộ trình giảm cân an toàn..." },
+        { limit: 95, text: "Đang liên kết giải pháp 3 Không 4 Trụ..." },
+        { limit: 100, text: "Hoàn tất! Đang kết xuất báo cáo của bạn..." }
+      ];
+      
+      const loadInterval = setInterval(() => {
+        pctValue += 1;
+        percentageText.innerText = `${pctValue}%`;
+        
+        const phrase = loadingPhrases.find(p => pctValue <= p.limit);
+        if (phrase) {
+          statusText.innerText = phrase.text;
+        }
+        
+        if (pctValue >= 100) {
+          clearInterval(loadInterval);
+          
+          // Submit immediately to Google Sheets in background with 'Không cung cấp' email
+          submitToGoogleSheets();
+        }
+      }, 35);
+    }
+
+    function submitToGoogleSheets() {
+      // Apps Script Web App URL
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbvVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+      
+      const payload = {
+        type: "survey",
+        email: surveyData.email,
+        gender: surveyData.gender,
+        age: surveyData.age,
+        height: surveyData.height,
+        currentWeight: surveyData.currentWeight,
+        goalWeight: surveyData.goalWeight,
+        struggle: surveyData.struggle,
+        bmi: surveyData.bmi,
+        bmiCategory: surveyData.bmiCategory,
+        durationDays: surveyData.durationDays
+      };
+
+      // Execute network transaction in background. Using text/plain to circumvent CORS OPTIONS preflight block.
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        console.log("Survey results logged successfully into Google Sheets.");
+        
+        // Fire Meta Pixel Lead Event for successful survey submit
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead');
+          console.log("Meta Pixel Lead tracked for survey.");
+        }
+        
+        revealReportPage();
+      })
+      .catch(error => {
+        console.error("Error logging survey results to Google Sheets:", error);
+        // Reveal results page to user even if sheet fails, prioritizing CRO
+        revealReportPage();
+      });
+    }
+
+    // Optional email submit on results page
+    function submitOptionalEmail() {
+      const emailInput = document.getElementById('opt-email-input');
+      const emailVal = emailInput.value.trim();
+      const statusText = document.getElementById('opt-email-status');
+      const submitBtn = document.getElementById('btn-opt-email-submit');
+      
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailVal)) {
+        statusText.style.display = "block";
+        statusText.style.color = "var(--color-accent)";
+        statusText.innerText = "⚠️ Email không hợp lệ. Vui lòng kiểm tra lại.";
+        return;
+      }
+      
+      // Disable controls while sending
+      submitBtn.disabled = true;
+      submitBtn.innerText = "ĐANG GỬI...";
+      emailInput.disabled = true;
+      statusText.style.display = "none";
+      
+      surveyData.email = emailVal;
+      
+      const webAppUrl = "https://script.google.com/macros/s/AKfycbvVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+      
+      const payload = {
+        type: "survey",
+        email: surveyData.email,
+        gender: surveyData.gender,
+        age: surveyData.age,
+        height: surveyData.height,
+        currentWeight: surveyData.currentWeight,
+        goalWeight: surveyData.goalWeight,
+        struggle: surveyData.struggle,
+        bmi: surveyData.bmi,
+        bmiCategory: surveyData.bmiCategory,
+        durationDays: surveyData.durationDays
+      };
+
+      fetch(webAppUrl, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        console.log("Optional email synced to sheet.");
+        
+        // Show success visual state
+        statusText.style.display = "block";
+        statusText.style.color = "var(--color-primary)";
+        statusText.innerHTML = "✓ Gửi thành công! Lộ trình chi tiết đang được chuyển vào hộp thư của bạn.";
+        
+        // Hide form inputs nicely
+        emailInput.style.display = "none";
+        submitBtn.style.display = "none";
+      })
+      .catch(error => {
+        console.error("Error logging email:", error);
+        
+        // Friendly fallback success
+        statusText.style.display = "block";
+        statusText.style.color = "var(--color-primary)";
+        statusText.innerHTML = "✓ Đã lưu thành công email của bạn. Vui lòng kiểm tra hộp thư.";
+        emailInput.style.display = "none";
+        submitBtn.style.display = "none";
+      });
+    }
+
+    // ==========================================
+    // 8. DYNAMIC RESULTS VISUALIZATION CARD
+    // ==========================================
+    function revealReportPage() {
+      // Hide Loader
+      document.getElementById('loading-container').style.display = 'none';
+      
+      // Populate Report Values
+      document.getElementById('res-bmi-value').innerText = surveyData.bmi;
+      
+      const bmiBadge = document.getElementById('res-bmi-badge');
+      bmiBadge.innerText = surveyData.bmiCategory;
+      
+      // Stylize BMI Badge and Indicator Slider according to classification
+      bmiBadge.className = "bmi-class-badge"; // Reset classes
+      let meterPercentage = 50;
+      
+      if (surveyData.bmiCategory === 'Thiếu cân') {
+        bmiBadge.classList.add('bmi-badge-underweight');
+        meterPercentage = Math.max(10, Math.min(30, (surveyData.bmi - 15) / (18.5 - 15) * 30));
+      } else if (surveyData.bmiCategory === 'Bình thường') {
+        bmiBadge.classList.add('bmi-badge-normal');
+        meterPercentage = 30 + ((surveyData.bmi - 18.5) / (23 - 18.5) * 35);
+      } else if (surveyData.bmiCategory === 'Thừa cân') {
+        bmiBadge.classList.add('bmi-badge-overweight');
+        meterPercentage = 65 + ((surveyData.bmi - 23) / (25 - 23) * 15);
+      } else {
+        bmiBadge.classList.add('bmi-badge-obese');
+        meterPercentage = 80 + Math.min(15, ((surveyData.bmi - 25) / (35 - 25) * 15));
+      }
+      
+      document.getElementById('res-bmi-indicator').style.left = `${meterPercentage}%`;
+      
+      // Populate Weights Card
+      document.getElementById('res-weight-current').innerText = `${surveyData.currentWeight} kg`;
+      document.getElementById('res-weight-goal').innerText = `${surveyData.goalWeight} kg`;
+      
+      const diffKg = Math.round((surveyData.currentWeight - surveyData.goalWeight) * 10) / 10;
+      
+      // Populate Roadmap Summary Card (CRO)
+      document.getElementById('sum-weight-current').innerText = `${surveyData.currentWeight} kg`;
+      document.getElementById('sum-weight-goal').innerText = `${surveyData.goalWeight} kg`;
+      
+      let targetDaysMid = 30;
+      if (diffKg > 0) {
+        const parts = surveyData.durationDays.split(' - ');
+        if (parts.length === 2) {
+          targetDaysMid = Math.round((parseInt(parts[0]) + parseInt(parts[1])) / 2);
+        }
+      }
+      
+      function getWeightAtDay(day) {
+        if (day <= 0) return surveyData.currentWeight;
+        if (day >= targetDaysMid) return surveyData.goalWeight;
+        const t = day / targetDaysMid;
+        const currentW = surveyData.currentWeight;
+        const goalW = surveyData.goalWeight;
+        const weight = currentW * Math.pow(1 - t, 3) + 
+                      3 * currentW * Math.pow(1 - t, 2) * t + 
+                      3 * goalW * (1 - t) * Math.pow(t, 2) + 
+                      goalW * Math.pow(t, 3);
+        return Math.round(weight * 10) / 10;
+      }
+      
+      const w30 = getWeightAtDay(30);
+      const w60 = getWeightAtDay(60);
+      const w90 = getWeightAtDay(90);
+      
+      document.getElementById('sum-milestone-30').innerText = `${w30} kg`;
+      document.getElementById('sum-milestone-60').innerText = `${w60} kg`;
+      document.getElementById('sum-milestone-90').innerText = `${w90} kg`;
+      
+      const sumWeightDiffElem = document.getElementById('sum-weight-diff');
+      const psychTextElem = document.getElementById('psychological-text');
+      const ctaTextElem = document.getElementById('cta-dynamic-text');
+      
+      if (diffKg > 0) {
+        sumWeightDiffElem.innerText = `${diffKg} kg`;
+        psychTextElem.innerHTML = `Tin tốt là mục tiêu giảm <strong>${diffKg} kg</strong> của bạn <strong>hoàn toàn khả thi</strong>. Khi áp dụng đúng quy luật chuyển hóa tự nhiên của cơ thể, bạn có thể loại bỏ mỡ thừa tích tụ mà không cần phải nhịn ăn khổ sở hay vắt kiệt sức lực trong phòng tập.`;
+        ctaTextElem.innerText = `Xem tôi sẽ giảm ${diffKg}kg như thế nào`;
+        
+        document.getElementById('res-weight-diff').innerText = `${diffKg} kg`;
+        document.getElementById('res-days-range').innerText = `${surveyData.durationDays} ngày`;
+        document.getElementById('res-roadmap-text').innerHTML = `Để đạt cân nặng mục tiêu một cách bền vững nhất, bạn có thể đạt mục tiêu trong khoảng <strong>${surveyData.durationDays} ngày</strong>.`;
+        
+        // Update Chart Legend Labels
+        document.getElementById('chart-legend-start').innerText = `${surveyData.currentWeight} kg`;
+        document.getElementById('chart-legend-goal').innerText = `${surveyData.goalWeight} kg`;
+        document.getElementById('chart-legend-days').innerText = `${surveyData.durationDays} ngày`;
+      } else {
+        sumWeightDiffElem.innerText = `0 kg`;
+        psychTextElem.innerHTML = `Tin tốt là mục tiêu duy trì và săn chắc vóc dáng của bạn <strong>hoàn toàn khả thi</strong>. Khi áp dụng đúng quy luật chuyển hóa tự nhiên của cơ thể, bạn có thể định hình cơ bắp, giảm mỡ nội tạng mà không cần phải nhịn ăn khổ sở hay vắt kiệt sức lực trong phòng tập.`;
+        ctaTextElem.innerText = `Xem cách tôi sở hữu vóc dáng săn chắc ngay`;
+        
+        document.getElementById('res-weight-diff').innerText = `0 kg`;
+        document.getElementById('res-roadmap-text').innerHTML = `Bạn đang ở mức cân nặng lý tưởng! Lộ trình của bạn sẽ tập trung vào việc săn chắc cơ, giảm mỡ nội tạng và duy trì vóc dáng hoàn hảo trong vòng <strong>30 ngày</strong>.`;
+        
+        document.getElementById('chart-legend-start').innerText = `${surveyData.currentWeight} kg`;
+        document.getElementById('chart-legend-goal').innerText = `${surveyData.goalWeight} kg`;
+        document.getElementById('chart-legend-days').innerText = `30 ngày`;
+      }
+      
+      // Render the SVG Weight curve chart
+      renderWeightLossCurve(diffKg);
+      
+      // Inject personalized struggle feedback advice
+      renderPersonalizedAdvice();
+      
+      // Display the final reports container
+      document.getElementById('results-container').style.display = 'block';
+    }
+
+    // ==========================================
+    // 9. MATHEMATICALLY ACCURATE SVG CURVE RENDERER
+    // ==========================================
+    function renderWeightLossCurve(diffKg) {
+      const svg = document.getElementById('weight-chart');
+      const nodesGroup = document.getElementById('chart-nodes-group');
+      const badgesGroup = document.getElementById('chart-badges-group');
+      
+      // Reset past visual nodes
+      nodesGroup.innerHTML = "";
+      badgesGroup.innerHTML = "";
+      
+      // Mapping values
+      const currentW = surveyData.currentWeight;
+      const goalW = surveyData.goalWeight;
+      
+      let wMax, wMin;
+      if (diffKg > 0) {
+        wMax = currentW + 1.5;
+        wMin = goalW - 1.5;
+      } else {
+        wMax = currentW + 4;
+        wMin = currentW - 4;
+      }
+      
+      const padding = 40;
+      const svgHeight = 250;
+      const chartHeight = svgHeight - (2 * padding); // 170
+      
+      // Formula to map weight to Y coordinate
+      function getYCoordinate(w) {
+        return padding + (1 - (w - wMin) / (wMax - wMin)) * chartHeight;
+      }
+      
+      const Y0 = getYCoordinate(currentW);
+      const Y4 = getYCoordinate(goalW);
+      
+      // Compute smooth cubic bezier path coordinates:
+      // M X0,Y0 C 250,Y0 250,Y4 460,Y4
+      const X0 = 40, X4 = 460;
+      
+      const pathDStr = `M ${X0},${Y0} C 250,${Y0} 250,${Y4} ${X4},${Y4}`;
+      document.getElementById('chart-curve').setAttribute('d', pathDStr);
+      document.getElementById('chart-curve-bg').setAttribute('d', pathDStr);
+      
+      // Fill Area Path under the curve
+      const areaDStr = `${pathDStr} L 460,210 L 40,210 Z`;
+      document.getElementById('chart-area-path').setAttribute('d', areaDStr);
+      
+      // Helper function to extract exact points along the Bezier curve
+      function getBezierPoint(t) {
+        const x = X0 + t * (X4 - X0);
+        // Bezier formula for Y with control points Y_C1 = Y0, Y_C2 = Y4
+        const y = Y0 * Math.pow(1 - t, 3) + 
+                  3 * Y0 * Math.pow(1 - t, 2) * t + 
+                  3 * Y4 * (1 - t) * Math.pow(t, 2) + 
+                  Y4 * Math.pow(t, 3);
+        
+        // Reverse map Y to get weight
+        const weight = wMin + (1 - (y - padding) / chartHeight) * (wMax - wMin);
+        return { x, y, weight: Math.round(weight * 10) / 10 };
+      }
+      
+      // Build coordinates for time steps
+      let targetDaysMid = 30;
+      if (diffKg > 0) {
+        const parts = surveyData.durationDays.split(' - ');
+        if (parts.length === 2) {
+          targetDaysMid = Math.round((parseInt(parts[0]) + parseInt(parts[1])) / 2);
+        }
+      }
+      
+      // Dynamic time step axis label update
+      document.getElementById('chart-axis-goal-label').innerText = `${targetDaysMid} ngày`;
+      
+      const daysSteps = [0, 30, 60, 90, targetDaysMid];
+      
+      daysSteps.forEach((day, index) => {
+        let t = 0;
+        if (day >= targetDaysMid) {
+          t = 1;
+        } else {
+          t = day / targetDaysMid;
+        }
+        
+        const pt = getBezierPoint(t);
+        
+        // Skip duplicate plots in case targetDays is shorter than 90 days
+        if (index === 3 && targetDaysMid <= 90) return;
+        if (index === 2 && targetDaysMid <= 60) return;
+        if (index === 1 && targetDaysMid <= 30) return;
+        
+        // Determine node size & colors
+        let isGoal = (index === 4);
+        let isStart = (index === 0);
+        
+        let strokeColor = "#EF4444";
+        if (t >= 0.95) strokeColor = "#10B981";
+        else if (t >= 0.65) strokeColor = "#EAB308";
+        else if (t >= 0.3) strokeColor = "#F97316";
+        
+        if (isGoal) {
+          // Add pulsing halo animation ring in SVG for Goal Node
+          const pulseRing = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          pulseRing.setAttribute("cx", pt.x);
+          pulseRing.setAttribute("cy", pt.y);
+          pulseRing.setAttribute("class", "pulsing-ring");
+          pulseRing.setAttribute("stroke", "#10B981");
+          pulseRing.setAttribute("stroke-width", "4");
+          nodesGroup.appendChild(pulseRing);
+        }
+        
+        // Outer white bounding circle node
+        const nodeOuter = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        nodeOuter.setAttribute("cx", pt.x);
+        nodeOuter.setAttribute("cy", pt.y);
+        nodeOuter.setAttribute("r", isGoal ? "8" : "6");
+        nodeOuter.setAttribute("class", "chart-node-outer");
+        nodeOuter.setAttribute("stroke", strokeColor);
+        nodesGroup.appendChild(nodeOuter);
+        
+        // Inner colored dot
+        const nodeInner = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        nodeInner.setAttribute("cx", pt.x);
+        nodeInner.setAttribute("cy", pt.y);
+        nodeInner.setAttribute("r", isGoal ? "4" : "3.5");
+        nodeInner.setAttribute("class", "chart-node-inner");
+        nodeInner.setAttribute("fill", strokeColor);
+        nodesGroup.appendChild(nodeInner);
+        
+        // Add Floating Top Badge for Start and Goal values
+        if (isStart || isGoal) {
+          const badgeG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          badgeG.setAttribute("filter", "url(#shadow)");
+          
+          const labelText = isStart ? `START ${pt.weight}KG` : `GOAL ${pt.weight}KG`;
+          const badgeWidth = isStart ? 65 : 62;
+          const badgeHeight = 16;
+          
+          // Label Box
+          const badgeRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          badgeRect.setAttribute("x", pt.x - (badgeWidth / 2));
+          badgeRect.setAttribute("y", pt.y - 28);
+          badgeRect.setAttribute("width", badgeWidth);
+          badgeRect.setAttribute("height", badgeHeight);
+          badgeRect.setAttribute("class", "chart-label-bg");
+          badgeRect.setAttribute("fill", isStart ? "#07342E" : "#0F5A47");
+          badgeRect.setAttribute("rx", "4");
+          badgeRect.setAttribute("ry", "4");
+          badgeG.appendChild(badgeRect);
+          
+          // Label Text
+          const badgeText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          badgeText.setAttribute("x", pt.x);
+          badgeText.setAttribute("y", pt.y - 17);
+          badgeText.setAttribute("class", "chart-label-text");
+          badgeText.innerText = labelText;
+          badgeG.appendChild(badgeText);
+          
+          badgesGroup.appendChild(badgeG);
+        }
+      });
+    }
+
+    // ==========================================
+    // 10. CONDITIONAL RECOMMENDATIONS ENGINE
+    // ==========================================
+    function renderPersonalizedAdvice() {
+      const box = document.getElementById('recommendation-box');
+      let adviceHTML = "";
+      
+      const struggle = surveyData.struggle;
+      
+      if (struggle === "Hay bỏ cuộc giữa chừng") {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Bạn không thiếu kiến thức giảm cân. Bạn chỉ cần một hệ thống đủ đơn giản để duy trì lâu dài.</h3>
+            <p class="recommendation-body">
+              Hơn 90% mọi người thất bại khi giảm cân vì cố ép mình vào một chế độ ăn kiêng hà khắc hay tập luyện khổ cực. Sự gò ép quá mức phá hủy động lực tự nhiên, dẫn đến bỏ cuộc nửa chừng.
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Thay thế động lực nhất thời bằng <em>hệ thống thói quen nhỏ thích nghi tự nhiên</em>. Bằng cách thực hiện các cải tiến tí hon hằng ngày theo 4 Trụ Cột, bạn sẽ giảm mỡ thành công mà không hề có cảm giác đang "phải kiêng khem".
+            </p>
+          </div>
+        `;
+      } else if (struggle === "Không có thời gian") {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Thiết lập thói quen thông minh trong 15 phút mỗi ngày.</h3>
+            <p class="recommendation-body">
+              Bạn bận rộn và không có 2 tiếng đi tập gym hay nấu ăn cầu kỳ? Phương pháp của chúng tôi tối ưu hóa bữa ăn chuẩn bị nhanh chóng trong 10 phút từ nguyên liệu bình dân và các bài tập ngắn tại nhà 15 phút không cần dụng cụ.
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Tập trung tối đa vào <em>hiệu quả năng lượng</em>. Thay đổi bữa sáng thông minh và vận động kích hoạt cơ nhẹ nhàng vào buổi tối sẽ giúp cơ thể tự động đốt mỡ mà không tốn nhiều quỹ thời gian quý báu của bạn.
+            </p>
+          </div>
+        `;
+      } else if (struggle === "Hay thèm ăn") {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Kiểm soát hormone đói tự nhiên, không cần nhịn ăn khổ sở.</h3>
+            <p class="recommendation-body">
+              Cảm giác thèm ăn dữ dội không phải do bạn "thiếu ý chí", mà là phản ứng sinh lý tự nhiên khi hormone ghrelin tăng cao do thiếu ngủ, stress hoặc ăn sai nhóm chất gây trồi sụt đường huyết.
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Thay vì nhịn ăn gây thèm ăn dồn nén, hãy tập trung vào <em>Ăn đúng nhóm chất no lâu</em>. Protein chất lượng cao kết hợp xơ hòa tan sẽ làm đầy dạ dày ổn định, triệt tiêu tín hiệu thèm ăn ngọt một cách nhẹ nhàng.
+            </p>
+          </div>
+        `;
+      } else if (struggle === "Không biết ăn gì") {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Thực đơn thiết kế sẵn, dễ mua, dễ chế biến tại Việt Nam.</h3>
+            <p class="recommendation-body">
+              Bạn hoang mang trước hàng loạt chế độ phức tạp như Keto, Eat Clean, DAS? Chúng tôi cung cấp giải pháp thực đơn dinh dưỡng đơn giản với các món ăn Việt quen thuộc, bình dân, dễ chuẩn bị mà vẫn tối ưu lượng calo.
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Không cần thay đổi toàn bộ mâm cơm gia đình, bạn chỉ cần áp dụng công thức <em>"Tái phân phối dĩa thức ăn"</em> để kiểm soát calo thông minh mà vẫn thưởng thức những món ăn yêu thích cùng người thân.
+            </p>
+          </div>
+        `;
+      } else if (struggle === "Chững cân") {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Phá vỡ giới hạn thích nghi, khởi động lại quá trình trao đổi chất.</h3>
+            <p class="recommendation-body">
+              Chững cân xảy ra khi cơ thể của bạn tự thích nghi với mức nạp calo thấp và chuyển sang chế độ tiết kiệm năng lượng (Metabolic Adaptation).
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Thay vì ép calo xuống sâu hơn nữa, bạn cần áp dụng kỹ thuật <em>"Kích hoạt chu kỳ trao đổi chất"</em> kết hợp kỹ thuật nạp đầy chất dinh dưỡng (Refeed) thông minh trong vài ngày để đánh thức cơ chế đốt mỡ tự nhiên của cơ thể.
+            </p>
+          </div>
+        `;
+      } else {
+        adviceHTML = `
+          <div class="recommendation-card">
+            <span class="recommendation-tag">Đánh giá chuyên sâu</span>
+            <h3 class="recommendation-title">Lắng nghe cơ thể và thiết lập lộ trình thích ứng cao.</h3>
+            <p class="recommendation-body">
+              Mỗi cơ thể là một bản thể độc nhất với cơ địa, gen, và nhịp sinh học khác nhau. Giảm cân bền vững đòi hỏi sự thấu hiểu sâu sắc các phản ứng sinh học bên trong cơ thể bạn.
+            </p>
+            <p class="recommendation-body">
+              <strong>Giải pháp khắc phục của bạn:</strong> Áp dụng linh hoạt triết lý 4 Trụ Cột của Hạnh Healthy, tìm ra điểm cân bằng cá nhân hóa giữa việc ăn ngon miệng, ngủ đủ giấc, vận động hứng khởi để giữ cân nặng giảm mượt mà.
+            </p>
+          </div>
+        `;
+      }
+      
+      box.innerHTML = adviceHTML;
+    }
+
+    // ==========================================
+    // 11. REDIRECT LINK TO SALES PAGE (CTA)
+    // ==========================================
+    function redirectToLandingPage() {
+      // Pass user profiling data to the landing page as parameters for tailored marketing
+      const pBmi = encodeURIComponent(surveyData.bmi);
+      const pEmail = encodeURIComponent(surveyData.email);
+      const pWeight = encodeURIComponent(surveyData.currentWeight);
+      const pGoal = encodeURIComponent(surveyData.goalWeight);
+      const pStruggle = encodeURIComponent(surveyData.struggle);
+      
+      // Redirect seamlessly to the main sales landing page
+      window.location.href = `index.html?survey=complete&email=${pEmail}&bmi=${pBmi}&weight=${pWeight}&goal=${pGoal}&struggle=${pStruggle}`;
+    }
+  </script>
+</body>
+</html>
