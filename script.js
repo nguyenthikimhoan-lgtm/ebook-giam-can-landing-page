@@ -761,30 +761,33 @@ function initCheckoutSection() {
     const pollingUrl = `${webAppUrl}?memo=${encodeURIComponent(memo)}`;
 
     const checkStatus = () => {
-      console.log(`[DEBUG] Current memo being polled: "${memo}"`);
-      console.log(`[DEBUG] Polling URL: "${pollingUrl}"`);
+      console.log(`[DEBUG] Polling payment status for memo: "${memo}"`);
+      console.log(`[DEBUG] Polling endpoint URL: "${pollingUrl}"`);
 
       fetch(pollingUrl)
-        .then(response => {
-          if (!response.ok) {
+        .then(res => {
+          if (!res.ok) {
             throw new Error("Network response was not ok");
           }
-          return response.json();
+          return res.json();
         })
         .then(data => {
-          console.log(`[DEBUG] Response data:`, data);
-          let status = "";
-          if (data && typeof data === "object") {
-            status = data.status || (data.data && data.data.status) || data.result || "";
-          } else if (typeof data === "string") {
-            status = data;
+          const response = data;
+          console.log(`[DEBUG] Raw response:`, response);
+          console.log(`[DEBUG] Response status:`, response ? response.status : undefined);
+
+          let selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+          let selectedPackageAmount = 599000; // default value
+          if (selectedRadio) {
+            selectedPackageAmount = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
           }
 
-          console.log(`[DEBUG] Response status: "${status}"`);
-
-          if (status && status.toUpperCase() === "PAID") {
-            console.log(`[DEBUG] PAID detected for memo: "${memo}"`);
-            showSuccessState(memo);
+          if (response && response.status === "PAID") {
+            console.log(`[DEBUG] Real PAID status confirmed. Triggering success visual state and Purchase tracking.`);
+            showPaymentSuccess();
+            firePurchaseOnce(memo, selectedPackageAmount);
+          } else {
+            console.log("Payment not confirmed yet. Purchase blocked.", response ? response.status : undefined);
           }
         })
         .catch(error => {
@@ -799,7 +802,7 @@ function initCheckoutSection() {
     statusPollingInterval = setInterval(checkStatus, 5000);
   }
 
-  function showSuccessState(memo) {
+  function showPaymentSuccess() {
     if (countdownInterval) clearInterval(countdownInterval);
     if (statusPollingInterval) clearInterval(statusPollingInterval);
 
@@ -810,23 +813,18 @@ function initCheckoutSection() {
     if (qrActiveState) qrActiveState.style.display = "none";
     if (successState) successState.style.display = "block";
     if (expiredState) expiredState.style.display = "none";
+  }
 
-    // Track Meta Pixel Purchase Event
+  function firePurchaseOnce(memo, selectedPackageAmount) {
     if (typeof fbq === 'function') {
       const purchaseKey = `purchase_tracked_${memo}`;
       if (!sessionStorage.getItem(purchaseKey)) {
-        let selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
-        let selectedPackageAmount = 599000; // default value
-        if (selectedRadio) {
-          selectedPackageAmount = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
-        }
-        
         fbq('track', 'Purchase', {
           value: selectedPackageAmount,
           currency: 'VND'
         });
         sessionStorage.setItem(purchaseKey, 'true');
-        console.log(`[DEBUG] Purchase event fires. Value: ${selectedPackageAmount}, Memo: ${memo}`);
+        console.log(`[DEBUG] Meta Pixel Purchase event fires. Value: ${selectedPackageAmount}, Memo: ${memo}`);
       } else {
         console.log(`[DEBUG] Purchase event already fired for memo: ${memo}`);
       }
