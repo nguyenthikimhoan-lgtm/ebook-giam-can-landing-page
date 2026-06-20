@@ -549,6 +549,22 @@ function initCheckoutSection() {
   }
   if (btnSuccessClose) {
     btnSuccessClose.addEventListener("click", () => {
+      const emailVal = (emailInput ? emailInput.value.trim() : "").toLowerCase();
+      let mailUrl = "";
+      if (emailVal.includes("@gmail.com")) {
+        mailUrl = "https://mail.google.com";
+      } else if (emailVal.includes("@yahoo.com")) {
+        mailUrl = "https://mail.yahoo.com";
+      } else if (emailVal.includes("@outlook.com") || emailVal.includes("@hotmail.com") || emailVal.includes("@live.com")) {
+        mailUrl = "https://outlook.live.com";
+      }
+      
+      if (mailUrl) {
+        window.open(mailUrl, "_blank");
+      } else {
+        window.open("mailto:", "_blank");
+      }
+      
       hidePaymentModal();
       resetCheckoutForm();
     });
@@ -736,15 +752,19 @@ function initCheckoutSection() {
       }
     }, 1000);
 
-    // Bắt đầu kiểm tra trạng thái thanh toán từ Google Sheets mỗi 10 giây
+    // Bắt đầu kiểm tra trạng thái thanh toán từ Google Sheets ngay lập tức và mỗi 5 giây
     startStatusPolling(memo);
   }
 
   function startStatusPolling(memo) {
     const webAppUrl = "https://script.google.com/macros/s/AKfycbxVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+    const pollingUrl = `${webAppUrl}?memo=${encodeURIComponent(memo)}`;
 
-    statusPollingInterval = setInterval(() => {
-      fetch(`${webAppUrl}?memo=${encodeURIComponent(memo)}`)
+    const checkStatus = () => {
+      console.log(`[DEBUG] Current memo being polled: "${memo}"`);
+      console.log(`[DEBUG] Polling URL: "${pollingUrl}"`);
+
+      fetch(pollingUrl)
         .then(response => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -752,7 +772,7 @@ function initCheckoutSection() {
           return response.json();
         })
         .then(data => {
-          console.log("Polling payment status response:", data);
+          console.log(`[DEBUG] Response data:`, data);
           let status = "";
           if (data && typeof data === "object") {
             status = data.status || (data.data && data.data.status) || data.result || "";
@@ -760,17 +780,26 @@ function initCheckoutSection() {
             status = data;
           }
 
+          console.log(`[DEBUG] Response status: "${status}"`);
+
           if (status && status.toUpperCase() === "PAID") {
-            showSuccessState();
+            console.log(`[DEBUG] PAID detected for memo: "${memo}"`);
+            showSuccessState(memo);
           }
         })
         .catch(error => {
-          console.warn("Lỗi khi kiểm tra trạng thái thanh toán:", error);
+          console.warn("[DEBUG] Error polling payment status:", error);
         });
-    }, 10000); // Mỗi 10 giây
+    };
+
+    // Run immediately first
+    checkStatus();
+
+    // Poll every 5 seconds
+    statusPollingInterval = setInterval(checkStatus, 5000);
   }
 
-  function showSuccessState() {
+  function showSuccessState(memo) {
     if (countdownInterval) clearInterval(countdownInterval);
     if (statusPollingInterval) clearInterval(statusPollingInterval);
 
@@ -784,20 +813,25 @@ function initCheckoutSection() {
 
     // Track Meta Pixel Purchase Event
     if (typeof fbq === 'function') {
-      const purchaseKey = 'purchase_tracked_meta_pixel';
+      const purchaseKey = `purchase_tracked_${memo}`;
       if (!sessionStorage.getItem(purchaseKey)) {
         let selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
-        let amount = 599000; // default value
+        let selectedPackageAmount = 599000; // default value
         if (selectedRadio) {
-          amount = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
+          selectedPackageAmount = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
         }
+        
         fbq('track', 'Purchase', {
-          value: amount,
+          value: selectedPackageAmount,
           currency: 'VND'
         });
         sessionStorage.setItem(purchaseKey, 'true');
-        console.log("Meta Pixel Purchase tracked successfully, value:", amount);
+        console.log(`[DEBUG] Purchase event fires. Value: ${selectedPackageAmount}, Memo: ${memo}`);
+      } else {
+        console.log(`[DEBUG] Purchase event already fired for memo: ${memo}`);
       }
+    } else {
+      console.warn("[DEBUG] fbq function is not defined. Meta Pixel Purchase tracking skipped.");
     }
   }
 
