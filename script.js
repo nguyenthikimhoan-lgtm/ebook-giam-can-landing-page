@@ -216,6 +216,15 @@ function initExitIntent() {
 
         console.log("Lead submitted");
 
+        // Fire Meta Pixel Lead Event (Prevent duplicate firing with sessionStorage)
+        if (typeof fbq === 'function') {
+          if (!sessionStorage.getItem('lead_submitted_meta_pixel')) {
+            fbq('track', 'Lead');
+            sessionStorage.setItem('lead_submitted_meta_pixel', 'true');
+            console.log("Meta Pixel Lead tracked successfully");
+          }
+        }
+
         // Record successful submission (30 days block)
         localStorage.setItem("exit_popup_submitted_time", String(Date.now()));
 
@@ -306,6 +315,12 @@ function initSmoothScroll() {
           // Phát hỏa sự kiện change để cập nhật lại tóm tắt đơn hàng ngay lập tức
           radio.dispatchEvent(new Event("change"));
         }
+      }
+      
+      // Fire Meta Pixel InitiateCheckout Event
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout');
+        console.log("Meta Pixel InitiateCheckout tracked from scroll CTA click");
       }
       
       const target = document.getElementById("checkout-section");
@@ -610,6 +625,12 @@ function initCheckoutSection() {
     checkoutForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
+      // Fire Meta Pixel InitiateCheckout Event
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout');
+        console.log("Meta Pixel InitiateCheckout tracked from checkout form submit");
+      }
+
       // Hiển thị trạng thái Loading trên nút bấm, ẩn thông báo cảnh báo cũ
       if (spinner) spinner.style.display = "inline-block";
       btnSubmit.classList.add("btn-disabled-checkout");
@@ -760,6 +781,24 @@ function initCheckoutSection() {
     if (qrActiveState) qrActiveState.style.display = "none";
     if (successState) successState.style.display = "block";
     if (expiredState) expiredState.style.display = "none";
+
+    // Track Meta Pixel Purchase Event
+    if (typeof fbq === 'function') {
+      const purchaseKey = 'purchase_tracked_meta_pixel';
+      if (!sessionStorage.getItem(purchaseKey)) {
+        let selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+        let amount = 599000; // default value
+        if (selectedRadio) {
+          amount = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
+        }
+        fbq('track', 'Purchase', {
+          value: amount,
+          currency: 'VND'
+        });
+        sessionStorage.setItem(purchaseKey, 'true');
+        console.log("Meta Pixel Purchase tracked successfully, value:", amount);
+      }
+    }
   }
 
   function showExpiredState() {

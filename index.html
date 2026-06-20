@@ -2,6 +2,23 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1008081101712952');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1008081101712952&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- SEO Directives -->
@@ -1098,63 +1115,63 @@
           </div>
 
           <!-- Box 2: Package Selection -->
-          <div class="checkout-box-premium" id="checkout-box-package" style="background-color: #0E3E33; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; display: none;">
-            <h3 class="checkout-box-title" style="color: var(--color-gold) !important; font-size: 1.15rem; font-weight: bold; margin-top: 0; margin-bottom: 1.25rem;">⭐ CHỌN GÓI SẢN PHẨM</h3>
-            <div class="package-selector-list-premium" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="checkout-box-premium" id="checkout-box-package" style="background-color: #0E3E33; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; margin-top: 1.25rem; display: none;">
+            <h3 class="checkout-box-title" style="color: var(--color-gold) !important; font-size: 1.15rem; font-weight: bold; margin-top: 0; margin-bottom: 0.75rem;">⭐ CHỌN GÓI SẢN PHẨM</h3>
+            <div class="package-selector-list-premium" style="display: flex; flex-direction: column; gap: 0.65rem;">
               
               <!-- Gói 1 -->
-              <label class="package-radio-container-premium" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; cursor: pointer; background: rgba(255,255,255,0.03);">
+              <label class="package-radio-container-premium" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.65rem 0.75rem; cursor: pointer; background: rgba(255,255,255,0.03);">
                 <input type="radio" name="checkout-package" value="starter" data-price="399000" data-label="Gói Khởi Động 90 Ngày" style="accent-color: var(--color-primary-light);">
-                <div class="package-radio-info-premium" style="margin-left: 1rem; margin-right: auto; text-align: left;">
-                  <h4 style="color: #FFFFFF; font-size: 0.95rem; font-weight: bold; margin: 0;">GÓI KHỞI ĐỘNG 90 NGÀY</h4>
-                  <p style="color: var(--color-text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Nhận Ebook hệ thống + Checklist 90 ngày</p>
+                <div class="package-radio-info-premium" style="margin-left: 0.75rem; margin-right: auto; text-align: left;">
+                  <h4 style="color: #FFFFFF; font-size: 0.9rem; font-weight: bold; margin: 0;">GÓI KHỞI ĐỘNG 90 NGÀY</h4>
+                  <p style="color: var(--color-text-muted); font-size: 0.8rem; margin: 0.15rem 0 0 0;">Nhận Ebook hệ thống + Checklist 90 ngày</p>
                 </div>
-                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.1rem;">399.000đ</div>
+                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.05rem;">399.000đ</div>
               </label>
 
               <!-- Gói 2 (RECOMMENDED) -->
-              <label class="package-radio-container-premium highlighted-radio-premium" style="display: flex; align-items: center; justify-content: space-between; border: 2px solid var(--color-gold); border-radius: 8px; padding: 1.25rem 1rem 1rem 1rem; cursor: pointer; background: rgba(217,119,6,0.05); position: relative;">
-                <span class="radio-badge-premium" style="position: absolute; top: -10px; right: 15px; background: var(--color-gold); color: #092C22; font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase;">KHUYÊN DÙNG — 80% CHỌN</span>
+              <label class="package-radio-container-premium highlighted-radio-premium" style="display: flex; align-items: center; justify-content: space-between; border: 2px solid var(--color-gold); border-radius: 8px; padding: 0.9rem 0.75rem 0.65rem 0.75rem; cursor: pointer; background: rgba(217,119,6,0.05); position: relative;">
+                <span class="radio-badge-premium" style="position: absolute; top: -10px; right: 15px; background: var(--color-gold); color: #092C22; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 4px; text-transform: uppercase;">KHUYÊN DÙNG — 80% CHỌN</span>
                 <input type="radio" name="checkout-package" value="complete" data-price="599000" data-label="Gói Lộ Trình Hoàn Chỉnh 90 Ngày" checked style="accent-color: var(--color-primary-light);">
-                <div class="package-radio-info-premium" style="margin-left: 1rem; margin-right: auto; text-align: left;">
-                  <h4 style="color: #FFFFFF; font-size: 0.95rem; font-weight: bold; margin: 0;">GÓI LỘ TRÌNH HOÀN CHỈNH</h4>
-                  <p style="color: var(--color-text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Trọn bộ Ebook, Thực đơn, Planner & Chống Bỏ Cuộc™</p>
+                <div class="package-radio-info-premium" style="margin-left: 0.75rem; margin-right: auto; text-align: left;">
+                  <h4 style="color: #FFFFFF; font-size: 0.9rem; font-weight: bold; margin: 0;">GÓI LỘ TRÌNH HOÀN CHỈNH</h4>
+                  <p style="color: var(--color-text-muted); font-size: 0.8rem; margin: 0.15rem 0 0 0;">Trọn bộ Ebook, Thực đơn, Planner & Chống Bỏ Cuộc™</p>
                 </div>
-                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.15rem;">599.000đ</div>
+                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.1rem;">599.000đ</div>
               </label>
 
               <!-- Gói 3 -->
-              <label class="package-radio-container-premium" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; cursor: pointer; background: rgba(255,255,255,0.03);">
+              <label class="package-radio-container-premium" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.65rem 0.75rem; cursor: pointer; background: rgba(255,255,255,0.03);">
                 <input type="radio" name="checkout-package" value="vip" data-price="999000" data-label="Gói Đồng Hành VIP" style="accent-color: var(--color-primary-light);">
-                <div class="package-radio-info-premium" style="margin-left: 1rem; margin-right: auto; text-align: left;">
-                  <h4 style="color: #FFFFFF; font-size: 0.95rem; font-weight: bold; margin: 0;">GÓI ĐỒNG HÀNH VIP</h4>
-                  <p style="color: var(--color-text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">Bộ Hoàn Chỉnh + Hỗ trợ giải đáp trực tiếp hằng ngày</p>
+                <div class="package-radio-info-premium" style="margin-left: 0.75rem; margin-right: auto; text-align: left;">
+                  <h4 style="color: #FFFFFF; font-size: 0.9rem; font-weight: bold; margin: 0;">GÓI ĐỒNG HÀNH VIP</h4>
+                  <p style="color: var(--color-text-muted); font-size: 0.8rem; margin: 0.15rem 0 0 0;">Bộ Hoàn Chỉnh + Hỗ trợ giải đáp trực tiếp hằng ngày</p>
                 </div>
-                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.1rem;">999.000đ</div>
+                <div class="package-radio-price-premium" style="color: var(--color-gold); font-weight: bold; font-size: 1.05rem;">999.000đ</div>
               </label>
 
             </div>
           </div>
 
           <!-- Box 3: Order Summary -->
-          <div class="checkout-box-premium" id="checkout-box-summary" style="background-color: #0E3E33; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; display: none;">
-            <h3 class="checkout-box-title" style="color: var(--color-gold) !important; font-size: 1.15rem; font-weight: bold; margin-top: 0; margin-bottom: 1.25rem;">🛒 TÓM TẮT ĐƠN HÀNG</h3>
-            <div class="order-summary-premium" style="display: flex; flex-direction: column; gap: 0.75rem;">
-              <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
-                <span class="summary-label" style="color: var(--color-text-muted); font-size: 0.9rem;">Sản phẩm đăng ký:</span>
+          <div class="checkout-box-premium" id="checkout-box-summary" style="background-color: #0E3E33; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; margin-top: 1.25rem; display: none;">
+            <h3 class="checkout-box-title" style="color: var(--color-gold) !important; font-size: 1.15rem; font-weight: bold; margin-top: 0; margin-bottom: 0.75rem;">🛒 TÓM TẮT ĐƠN HÀNG</h3>
+            <div class="order-summary-premium" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div class="summary-row" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.35rem;">
+                <span class="summary-label" style="color: var(--color-text-muted); font-size: 0.85rem;">Sản phẩm đăng ký:</span>
                 <strong class="summary-value" id="summary-package-name" style="color: #FFFFFF; font-size: 0.95rem;">Gói Lộ Trình Hoàn Chỉnh 90 Ngày</strong>
               </div>
-              <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
-                <span class="summary-label" style="color: var(--color-text-muted); font-size: 0.9rem;">Giá gốc thực tế:</span>
-                <span class="summary-value" style="text-decoration: line-through; opacity: 0.6; color: #FFFFFF;" id="summary-original-price">1.200.000đ</span>
+              <div class="summary-row" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.35rem;">
+                <span class="summary-label" style="color: var(--color-text-muted); font-size: 0.85rem;">Giá gốc thực tế:</span>
+                <span class="summary-value" style="text-decoration: line-through; opacity: 0.6; color: #FFFFFF; font-size: 0.9rem;" id="summary-original-price">1.200.000đ</span>
               </div>
-              <div class="summary-row text-discount" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; color: #F43F5E;">
-                <span class="summary-label" style="font-size: 0.9rem; font-weight: bold;">Ưu đãi hôm nay (CK 1 lần):</span>
-                <span class="summary-value" id="summary-discount" style="font-weight: bold;">-50% TRỌN BỘ</span>
+              <div class="summary-row text-discount" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.35rem; color: #F43F5E;">
+                <span class="summary-label" style="font-size: 0.85rem; font-weight: bold;">Ưu đãi hôm nay (CK 1 lần):</span>
+                <span class="summary-value" id="summary-discount" style="font-weight: bold; font-size: 0.9rem;">-50% TRỌN BỘ</span>
               </div>
               <div class="summary-row summary-total" style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.25rem;">
-                <span class="summary-label" style="color: #FFFFFF; font-weight: bold; font-size: 1rem;">Tổng cộng đầu tư:</span>
-                <strong class="summary-value color-accent" id="summary-total-price" style="color: var(--color-gold); font-size: 1.4rem; font-weight: 800;">599.000đ</strong>
+                <span class="summary-label" style="color: #FFFFFF; font-weight: bold; font-size: 0.95rem;">Tổng cộng đầu tư:</span>
+                <strong class="summary-value color-accent" id="summary-total-price" style="color: var(--color-gold); font-size: 1.3rem; font-weight: 800;">599.000đ</strong>
               </div>
             </div>
           </div>
