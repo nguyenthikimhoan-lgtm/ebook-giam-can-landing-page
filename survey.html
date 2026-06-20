@@ -1771,6 +1771,11 @@
   <!-- SURVEY LOGIC SCRIPT BLOCK -->
   <script>
     // ==========================================
+    // 0. CONFIGURATION (Set your Google Sheets Web App URL here)
+    // ==========================================
+    const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxddkJnr-Fyh0TtILibtf-_G7Pbt9MOcN6WdoX4LPD1Sc96f50AY8nMQZYXxyupZVgPoQ/exec";
+
+    // ==========================================
     // 1. DATA STATE MANAGEMENT
     // ==========================================
     let currentStep = 1;
@@ -2044,8 +2049,8 @@
     }
 
     function submitToGoogleSheets() {
-      // Apps Script Web App URL
-      const webAppUrl = "https://script.google.com/macros/s/AKfycbvVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+      // Apps Script Web App URL from central configuration
+      const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
       
       const payload = {
         type: "survey",
@@ -2111,7 +2116,7 @@
       
       surveyData.email = emailVal;
       
-      const webAppUrl = "https://script.google.com/macros/s/AKfycbvVNUvVcDL666mlpWz9WDgBdvh_NtV_CwNLac-hDLnEdQa9kU9XPJBtxGZhfQjWStamVg/exec";
+      const webAppUrl = GOOGLE_SHEETS_WEB_APP_URL;
       
       const payload = {
         type: "survey",
