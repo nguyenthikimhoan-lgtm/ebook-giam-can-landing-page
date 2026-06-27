@@ -531,7 +531,7 @@ function initCheckoutSection() {
               item_price: price
             }
           ]
-         });
+        });
         sessionStorage.setItem(checkoutKey, 'true');
         console.log(`[DEBUG] InitiateCheckout fired - Selected package: "${packageName}", Price: ${price}, Memo: "${memo}"`);
       } else {
