@@ -317,12 +317,6 @@ function initSmoothScroll() {
         }
       }
       
-      // Fire Meta Pixel InitiateCheckout Event
-      if (typeof fbq === 'function') {
-        fbq('track', 'InitiateCheckout');
-        console.log("Meta Pixel InitiateCheckout tracked from scroll CTA click");
-      }
-      
       const target = document.getElementById("checkout-section");
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -519,6 +513,35 @@ function initCheckoutSection() {
   let countdownInterval = null;
   let statusPollingInterval = null;
 
+  function trackInitiateCheckout(memo, price, packageName) {
+    if (typeof fbq === 'function') {
+      const checkoutKey = `checkout_tracked_${memo}`;
+      if (!sessionStorage.getItem(checkoutKey)) {
+        fbq('track', 'InitiateCheckout', {
+          value: price,
+          currency: 'VND',
+          content_name: packageName,
+          content_category: 'Weight Loss Ebook',
+          content_ids: [packageName],
+          num_items: 1,
+          contents: [
+            {
+              id: packageName,
+              quantity: 1,
+              item_price: price
+            }
+          ]
+         });
+        sessionStorage.setItem(checkoutKey, 'true');
+        console.log(`[DEBUG] InitiateCheckout fired - Selected package: "${packageName}", Price: ${price}, Memo: "${memo}"`);
+      } else {
+        console.log(`[DEBUG] InitiateCheckout duplicate prevented for memo: "${memo}"`);
+      }
+    } else {
+      console.warn("[DEBUG] fbq function is not defined. Meta Pixel InitiateCheckout tracking skipped.");
+    }
+  }
+
   function showPaymentModal(memo) {
     if (paymentModal) paymentModal.classList.add("active");
     
@@ -529,6 +552,18 @@ function initCheckoutSection() {
     }
     
     startPaymentCountdown(memo);
+
+    // Fire InitiateCheckout tracking ONLY after QR Payment Popup is successfully displayed
+    if (paymentModal && paymentModal.classList.contains("active")) {
+      const selectedRadio = document.querySelector('input[name="checkout-package"]:checked');
+      let price = 599000;
+      let packageName = "Gói Lộ Trình Hoàn Chỉnh 90 Ngày";
+      if (selectedRadio) {
+        price = parseInt(selectedRadio.getAttribute("data-price")) || 599000;
+        packageName = selectedRadio.getAttribute("data-label") || "Gói Lộ Trình Hoàn Chỉnh 90 Ngày";
+      }
+      trackInitiateCheckout(memo, price, packageName);
+    }
   }
 
   function hidePaymentModal() {
@@ -640,12 +675,6 @@ function initCheckoutSection() {
   if (checkoutForm && btnSubmit) {
     checkoutForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      // Fire Meta Pixel InitiateCheckout Event
-      if (typeof fbq === 'function') {
-        fbq('track', 'InitiateCheckout');
-        console.log("Meta Pixel InitiateCheckout tracked from checkout form submit");
-      }
 
       // Hiển thị trạng thái Loading trên nút bấm, ẩn thông báo cảnh báo cũ
       if (spinner) spinner.style.display = "inline-block";
@@ -824,9 +853,9 @@ function initCheckoutSection() {
           currency: 'VND'
         });
         sessionStorage.setItem(purchaseKey, 'true');
-        console.log(`[DEBUG] Meta Pixel Purchase event fires. Value: ${selectedPackageAmount}, Memo: ${memo}`);
+        console.log(`[DEBUG] Purchase fired - Selected package price: ${selectedPackageAmount}, Memo: "${memo}"`);
       } else {
-        console.log(`[DEBUG] Purchase event already fired for memo: ${memo}`);
+        console.log(`[DEBUG] Purchase prevented (duplicate) for memo: "${memo}"`);
       }
     } else {
       console.warn("[DEBUG] fbq function is not defined. Meta Pixel Purchase tracking skipped.");
